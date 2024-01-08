@@ -1,19 +1,21 @@
 // Login.js
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { login } from './api';
+import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../api/api';
 
-const Login = () => {
+const Login = (props) => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
-  const history = useHistory();
-
+  const navigate = useNavigate();
+  const {refresh} = props
   const handleLogin = async () => {
     try {
       const response = await login(credentials);
       // Store the token in local storage or session storage
-      localStorage.setItem('token', response.access_token);
+      console.log(response)
+      localStorage.setItem('token', response.token);
       // Redirect to a protected route
-      history.push('/dashboard');
+      navigate('/');
+      refresh()
     } catch (error) {
       console.error('Login failed:', error);
     }
@@ -33,7 +35,8 @@ const Login = () => {
         value={credentials.password}
         onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
       />
-      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleLogin}>Prijava</button>
+      <div> Nemaš račun? <Link to="/registracija">Registriraj se</Link></div>
     </div>
   );
 };
