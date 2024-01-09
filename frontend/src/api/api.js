@@ -48,3 +48,7 @@ export const getCategories = async () => {
 export const getPopularQuizes = async () => {
 
 }
+
+export const getQuizById = async (id) => {
+
+}

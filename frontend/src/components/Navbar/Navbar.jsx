@@ -19,17 +19,17 @@ const Navbar = ({ isAuthenticated }) => {
 
   return (
     <nav>
-      <div class="container-fluid navbar">
+      <div className="container-fluid navbar">
         <NavbarTitle/>
         <div className='d-flex flex-row justify-content-end border me-2 gap-5'>
 
           
-          <button class="btn btn-outline-success position-relative" onClick={()=>{toggleSearchExpanded()}}>
+          <button className="btn btn-outline-success position-relative" onClick={()=>{toggleSearchExpanded()}}>
             <FontAwesomeIcon icon={faSearch}/>
             {
             isSearchExpanded &&
-            <form class="d-flex" style={{width: "20vw", position: "absolute", top: 0, right: "50px"}}>
-              <input class="form-control me-2" lang='hr' type="search" placeholder="Traži..." aria-label="Traži"/>
+            <form className="d-flex" style={{width: "20vw", position: "absolute", top: 0, right: "50px"}}>
+              <input className="form-control me-2" lang='hr' type="search" placeholder="Traži..." aria-label="Traži"/>
             </form>
           }
           </button>
@@ -55,7 +55,7 @@ const Navbar = ({ isAuthenticated }) => {
 };
 
 const NavbarTitle = ()=>{
-  return <Link to="" class="navbar-brand m-1 ms-4"
+  return <Link to="" className="navbar-brand m-1 ms-4"
     style={{
       fontSize: "2em"
     }}

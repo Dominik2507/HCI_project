@@ -11,21 +11,21 @@ const AddQuestion = (props) => {
   }
 
   return (
-    <div className='d-flex flex-column'>
+    <div className='d-flex flex-column p-3'>
         <div>Dodaj novo pitanje</div>
         <form className='d-flex flex-column w-25' onSubmit={handleSubmit}>
 
         {
           quizType.id == 1 ? 
           <>
-            <div>
+            <div className='d-flex flex-column'>
               <label>Pitanje</label><input value={newQuestion.q} onChange={(e) => {setNewQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
               <label>Odgovor</label><input value={newQuestion.a} onChange={(e) => {setNewQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
             </div>
           </>:
           quizType.id == 2 || quizType.id == 4 ? 
           <>
-            <div>
+            <div className='d-flex flex-column'>
               <label>Prvi pojam</label><input value={newQuestion.q} onChange={(e) => {setNewQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
               <label>Drugi pojam</label><input value={newQuestion.a} onChange={(e) => {setNewQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
             </div>

@@ -23,9 +23,9 @@ const Categories = () => {
 
   if(categories && categories.length > 0){
 
-    categories.forEach(element => {
+    categories.forEach((element, index) => {
         categoriesCompoments.push(
-            <CategoryButton category={element}/>
+            <CategoryButton key={"homeCat-"+ index} category={element}/>
         )
     });
 

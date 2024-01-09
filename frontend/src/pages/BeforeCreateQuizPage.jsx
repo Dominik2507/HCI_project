@@ -9,7 +9,7 @@ const BeforeCreateQuizPage = (props) => {
         <div>Kreiraj novi kviz</div>
         <hr/>
         <div>
-            <p>
+            <div>
                 Za stvaranje kviza potrebno je definirati:
                 <ul>
                     <li>
@@ -25,7 +25,7 @@ const BeforeCreateQuizPage = (props) => {
                         Pitanja i odgovori, odnosno pojmovi za povezivanje
                     </li>
                 </ul>
-            </p>
+            </div>
         </div>
         {
             isAuthenticated ?

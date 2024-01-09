@@ -22,7 +22,6 @@ const App = () => {
 
   const refresh = ()=>{setRefreshToken(prev => !prev)}
 
-  console.log(isAuthenticated)
   return (
     <>
       <Router>
