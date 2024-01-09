@@ -114,3 +114,22 @@ export const users = [
         token: "qiruezroiqwzeriuqwziruqrwe"
     }
 ]
+
+export const QuizTypes = [
+    {
+        name: "Pitanje - odgovor",
+        id: 1
+    },
+    {
+        name: "Asocijacija",
+        id: 2
+    },
+    {
+        name: "Višestruki odgovor",
+        id: 3
+    },
+    {
+        name: "Memory",
+        id: 4
+    }
+]
