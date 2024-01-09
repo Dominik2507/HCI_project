@@ -26,7 +26,7 @@ const PopularQuiz = (props) => {
         <div className='d-flex flex-column justify-content-between' style={{width: "70%"}}>
             <div>
                 <h1>{quiz.title}</h1>
-                <div>{quiz.autor}</div>
+                <div>{quiz.author}</div>
             </div>
             <div className='d-flex flex-row justify-content-between p-3'>
                 <div>{quiz.category}</div>

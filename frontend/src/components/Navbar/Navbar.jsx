@@ -19,13 +19,13 @@ const Navbar = ({ isAuthenticated }) => {
 
   return (
     <nav>
-      <div className="container-fluid navbar">
+      <div className="container-fluid navbar bg-success">
         <NavbarTitle/>
         <div className='d-flex flex-row justify-content-end border me-2 gap-5'>
 
           
           <button className="btn btn-outline-success position-relative" onClick={()=>{toggleSearchExpanded()}}>
-            <FontAwesomeIcon icon={faSearch}/>
+            <FontAwesomeIcon icon={faSearch} color='white'/>
             {
             isSearchExpanded &&
             <form className="d-flex" style={{width: "20vw", position: "absolute", top: 0, right: "50px"}}>

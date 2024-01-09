@@ -56,8 +56,8 @@ export const Quizes = [
     {
         title: "Glavni gradovi",
         id: 1,
-        autor: "User321",
-        autorId: 1,
+        author: "User321",
+        authorId: 1,
         category: "Geografija",
         categoryId: 1,
         quizType: "Pitanje - odgovor",
@@ -65,21 +65,21 @@ export const Quizes = [
         duration: 30,
         image: "./logo192"
     },{
-        title: "Tko je autor?",
+        title: "Tko je autor",
         id: 2,
-        autor: "MG073",
-        autorId: 2,
+        author: "MG073",
+        authorId: 2,
         category: "Glazba",
         categoryId: 2,
         quizType: "Asocijacije",
         quizTypeId: 2,
-        duration: 25,
+        duration: 1000,
         image: "/logo192"
     },{
         title: "Tradicionalna jela",
         id: 3,
-        autor: "User321",
-        autorId: 1,
+        author: "User321",
+        authorId: 1,
         category: "Hrana",
         categoryId: 3,
         quizType: "Memory",
@@ -89,8 +89,8 @@ export const Quizes = [
     },{
         title: "Glavni gradovi",
         id: 4,
-        autor: "User321",
-        autorId: 1,
+        author: "User321",
+        authorId: 1,
         category: "Kultura",
         categoryId: 4,
         quizType: "Višestruki izbor",
@@ -131,5 +131,27 @@ export const QuizTypes = [
     {
         name: "Memory",
         id: 4
+    }
+]
+
+export const Pitanja = [
+    {
+        quizId: 1,
+        quizTypeId: 1,
+        questions: [
+            {
+                q: "Koji je glavni grad Italije?",
+                a: "Rim"
+            },
+            {
+                q: "Koji je glavni grad Japana?",
+                a: "Tokyo"
+            },
+            {
+                q: "Koji je glavni grad Turske?",
+                a: "Ankara"
+            }
+        ]
+        
     }
 ]

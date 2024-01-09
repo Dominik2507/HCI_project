@@ -52,3 +52,9 @@ export const getPopularQuizes = async () => {
 export const getQuizById = async (id) => {
 
 }
+
+export const saveQuizResults = async (quiz, questions, givenAnswers) => {
+  const token = localStorage.getItem("token")
+
+
+}
