@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.memoryButton:disabled {
+  background-color: initial;
+  opacity: 1;
+  border-color: black;
+  color: black;
+}

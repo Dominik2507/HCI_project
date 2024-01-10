@@ -63,7 +63,7 @@ export const Quizes = [
         quizType: "Pitanje - odgovor",
         quizTypeId: 1,
         duration: 30,
-        image: "./logo192"
+        image: "logo192.png"
     },{
         title: "Tko je autor",
         id: 2,
@@ -74,7 +74,7 @@ export const Quizes = [
         quizType: "Asocijacije",
         quizTypeId: 2,
         duration: 1000,
-        image: "/logo192"
+        image: "logo192.png"
     },{
         title: "Tradicionalna jela",
         id: 3,
@@ -85,7 +85,7 @@ export const Quizes = [
         quizType: "Memory",
         quizTypeId: 4,
         duration: 30,
-        image: "logo192"
+        image: "logo192.png"
     },{
         title: "Glavni gradovi",
         id: 4,
@@ -96,7 +96,7 @@ export const Quizes = [
         quizType: "Višestruki izbor",
         quizTypeId: 3,
         duration: 30,
-        image: "logo192"
+        image: "logo192.png"
     }
 ]
 
@@ -141,17 +141,86 @@ export const Pitanja = [
         questions: [
             {
                 q: "Koji je glavni grad Italije?",
-                a: "Rim"
+                a: "Rim",
+                wa1: "Zagreb",
+                wa2: "Ljubljana",
+                wa3: "Berlin"
             },
             {
                 q: "Koji je glavni grad Japana?",
-                a: "Tokyo"
+                a: "Tokyo",
+                wa1: "Zagreb",
+                wa2: "Ljubljana",
+                wa3: "Berlin"
             },
             {
                 q: "Koji je glavni grad Turske?",
-                a: "Ankara"
+                a: "Ankara",
+                wa1: "Zagreb",
+                wa2: "Ljubljana",
+                wa3: "Berlin"
             }
         ]
         
     }
 ]
+
+export const ProfileData = {
+    username: "MG073",
+    id: 2,
+    email: "gm@mail",
+    token: "qiruezroiqwzeriuqwziruqrwe",
+    image: "logo192.png",
+    results: {
+        taken: 10,
+        solvedQuestions: 58,
+        timeSpentSolving: 400
+    },
+    quizes: [
+        {
+            title: "Glavni gradovi",
+            id: 1,
+            author: "User321",
+            authorId: 1,
+            category: "Geografija",
+            categoryId: 1,
+            quizType: "Pitanje - odgovor",
+            quizTypeId: 1,
+            duration: 30,
+            image: "logo192.png"
+        },{
+            title: "Tko je autor",
+            id: 2,
+            author: "MG073",
+            authorId: 2,
+            category: "Glazba",
+            categoryId: 2,
+            quizType: "Asocijacije",
+            quizTypeId: 2,
+            duration: 60,
+            image: "logo192.png"
+        },{
+            title: "Tradicionalna jela",
+            id: 3,
+            author: "User321",
+            authorId: 1,
+            category: "Hrana",
+            categoryId: 3,
+            quizType: "Memory",
+            quizTypeId: 4,
+            duration: 30,
+            image: "logo192.png"
+        },{
+            title: "Glavni gradovi",
+            id: 4,
+            author: "User321",
+            authorId: 1,
+            category: "Kultura",
+            categoryId: 4,
+            quizType: "Višestruki izbor",
+            quizTypeId: 3,
+            duration: 30,
+            image: "logo192.png"
+        }
+    ]
+}

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faClock} from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom';
 
-const PopularQuiz = (props) => {
+const Quiz = (props) => {
   const {quiz} = props;
   const navigate = useNavigate();
 
@@ -40,4 +40,4 @@ const PopularQuiz = (props) => {
   );
 };
 
-export default PopularQuiz;
+export default Quiz;

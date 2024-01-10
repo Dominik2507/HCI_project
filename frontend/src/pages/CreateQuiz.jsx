@@ -6,6 +6,7 @@ import AddQuestion from '../components/CreateQuiz/AddQuestion';
 import Question from '../components/CreateQuiz/Question';
 import Dropzone from "react-dropzone"
 import EditQuestion from '../components/CreateQuiz/EditQuestion';
+import { getCategories, getQuitTypes } from '../api/api';
 
 const CreateQuiz = () => {
   const [quizName, setQuizName] = useState("")
@@ -28,19 +29,15 @@ const CreateQuiz = () => {
 
 
   useEffect(()=>{
-    //const quizes = getQuizTypes()
-    const quizes = QuizTypes
-    setQuizTypeList(quizes)
+    getQuitTypes().then(data=>{
+      setQuizTypeList(data)
+    })
 
-    //const categories = getCategories()
-    const categories = Categories
-    setCategoryList(categories)
+    getCategories().then(data => {
+      setCategoryList(data)
+    })
 
   }, [])
-
-  const handleRemoveQuestion = () => {
-
-  }
 
   const handleAddQuestion = (question) => {
     let temp = createdQuestions

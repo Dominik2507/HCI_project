@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getQuizById, saveQuizResults } from '../api/api';
+import { getQuestionsForQuiz, getQuizById, saveQuizResults } from '../api/api';
 import { Pitanja, Quizes } from '../api/dummyData';
 import ResultsDialog from '../components/SolveQuiz/ResultsDialog';
 
@@ -43,16 +43,16 @@ const SolveQuiz = ({isAuthenticated}) => {
 
   useEffect(()=>{
    if(kvizId){
-    //const quizResponse = getQuizById(kvizId)
+    getQuizById(kvizId).then(data => {
+      setQuiz(data)
+    })
 
-    const quizResponse = Quizes.find(q=> q.id == kvizId)
-    setQuiz(quizResponse)
+    getQuestionsForQuiz(kvizId).then(data =>{
+      setQuestions(data)
+      setGivenAnswers(Array(data.length).fill(''));
+    })
 
-    //const questionsResponse = getQuestionsForQuiz(kvizId)
-    const questionsResponse = Pitanja[0].questions
-    setQuestions(questionsResponse)
-
-    setGivenAnswers(Array(questionsResponse.length).fill(''));
+   
    } 
   }, [])
 
@@ -165,39 +165,49 @@ const SolvingQA = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
 }
 
 const SolvingAsoc = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
-  const [clickedPair, setClickedPair] = useState({first: null, second: null})
+  const [first, setClicked] = useState(0)
   const [correctlyPaired, setCorrectlyPaired] = useState([])
   const [answerButtons, setAnswerButtons] = useState(<></>)
-  const [refreshToken, setRefreshToken] = useState(0)
+  const [randomizedIndexList, setRandomIndexes] = useState([])
 
-  console.log(clickedPair)
+  console.log(first)
   console.log(correctlyPaired)
 
-  const refresh = ()=>{setRefreshToken(prev => prev + 1)}
-
-  const handleBothClicked = () =>{
+  const handleBothClicked = (second) =>{
     console.log("2 CLICKED")
-    if(clickedPair.first == -1 * (clickedPair.second + 1)){
+    console.log(first, second)
+    if(first == -1 * second){
+      let index = Math.max(first, second) - 1;
       //CORRECT
-      setCorrectlyPaired(prev => [...prev, Math.max(clickedPair.first, clickedPair.second)])
-
+      setCorrectlyPaired(prev => [...prev, index])
+      let temp = [...givenAnswers]
+      temp[index] = questions[index].a
+      setGivenAnswers(temp)
     }
       
-    setClickedPair({first: null, second: null})
-    refresh()
+    setClicked(0)
   }
 
-  const handleClickAsoc = (i, negative = false) => {
-    if(negative) i = -1 * (i + 1)
-    console.log(clickedPair.first != null)
-    if(clickedPair.first != null){
-      setClickedPair(prev => {return {...prev, "second": i}})
-      handleBothClicked()
-    }else{
-      setClickedPair({"first": i, "second": null})
+  const handleClickAsoc = (i) => {
+    if(first != 0) handleBothClicked(i)
+    else {
+      setClicked(i)
     }
-    refresh()
   };
+
+  useEffect(()=>{
+    if(viewOnly==false){
+      setCorrectlyPaired([])
+      setClicked(0)
+    }
+  }, [viewOnly])
+
+  useEffect(()=>{
+    if(viewOnly==false){
+      const normalIndexes = Array(questions.length * 2).fill('').map((q,i) => i)
+      setRandomIndexes(shuffleArray(normalIndexes))
+    }
+  }, [viewOnly])
 
   useEffect(()=>{
 
@@ -206,11 +216,11 @@ const SolvingAsoc = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
     questions.forEach((q, i) => {
       buttons.push(
         <button 
-        disabled={clickedPair.first == i || correctlyPaired.findIndex(c => c==i) >= 0} 
-        onClick={()=>handleClickAsoc(i)}
+        disabled={viewOnly || correctlyPaired.findIndex(c => c==i) >= 0} 
+        onClick={()=>{handleClickAsoc(i + 1)}}
         style={
           {
-            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "green" : clickedPair.first == i ? "yellow" : "initial"
+            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "green" : first == (i + 1) ? "yellow" : "initial"
           }
         }
         >
@@ -219,36 +229,245 @@ const SolvingAsoc = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
       )
       buttons.push(
         <button 
-        disabled={clickedPair.first == i || correctlyPaired.findIndex(c => c==i) >= 0} 
-        onClick={()=>handleClickAsoc(i, true)}
+        disabled={viewOnly || correctlyPaired.findIndex(c => c==i) >= 0} 
+        onClick={()=>{handleClickAsoc(-1 * (i + 1))}}
         style={
           {
-            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "green" : clickedPair.first == i ? "yellow" : "initial"
+            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "green" : first == (-1 *(i+1)) ? "yellow" : "initial"
           }
         }
         >
           {q.a}
         </button>
       )
-    } 
-    )
+    })
+
+    setAnswerButtons(buttons)
     
-    setAnswerButtons(shuffleArray(buttons))
-  },[])
+  },[viewOnly, correctlyPaired.length, first])
+
+  const randomizedButtons = randomizedIndexList.map(index => answerButtons[index])
 
   return (
-  <div>
-   {answerButtons}
+  <div style={{
+    display: "grid",
+    gridTemplateColumns: `repeat(${Math.floor(Math.sqrt(questions.length * 2))}, 1fr)`, // Two columns with equal width
+    //gridTemplateRows: "repeat(2, 1fr)",    // Two rows with equal height
+    padding: "2vh"
+  }}>
+   {randomizedButtons}
   </div>
   )
 }
 
 const SolvingQMA = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
-  return (<div>Solving qma</div>)
+  const [qIndex, setQuestionIndex] = useState(0)
+  const [randomizedIndexList, setRandomIndexes] = useState([])
+  const [answerButtons, setAnswerButtons] = useState(<></>)
+
+  const question = questions[qIndex]
+  
+  const handleAnswerChange = (answer) => {
+    // Create a new array with the updated answer for the current question
+    const updatedAnswers = [...givenAnswers];
+    updatedAnswers[qIndex] = answer;
+    setGivenAnswers(updatedAnswers);
+  };
+
+  useEffect(()=>{
+    if(viewOnly==false){
+      questions.forEach((q, i) => {
+        const normalIndexes = Array(4).fill('').map((q,i) => i)
+        setRandomIndexes(prev => [...prev, shuffleArray(normalIndexes)])
+      })
+      
+    }
+  }, [viewOnly])
+
+  useEffect(()=>{
+    setQuestionIndex(0)
+  }, [viewOnly])
+
+  useEffect(()=>{
+    const buttons = [
+      <button 
+        style={{backgroundColor: givenAnswers[qIndex] != question.a ? "initial" : viewOnly ? "green" : "yellow"}} 
+        onClick={()=>{handleAnswerChange(question.a)}}
+      >
+        {question.a}
+      </button>,
+      <button
+        style={{backgroundColor: givenAnswers[qIndex] != question.wa1 ? "initial" : viewOnly ? "green" : "yellow"}} 
+        onClick={()=>{handleAnswerChange(question.wa1)}}
+      >
+          {question.wa1}
+      </button>,
+      <button 
+        style={{backgroundColor: givenAnswers[qIndex] != question.wa2 ? "initial" : viewOnly ? "green" : "yellow"}} 
+        onClick={()=>{handleAnswerChange(question.wa2)}}
+      >
+          {question.wa2}
+      </button>,
+      <button
+        style={{backgroundColor: givenAnswers[qIndex] != question.wa3 ? "initial" : viewOnly ? "green" : "yellow"}}
+        onClick={()=>{handleAnswerChange(question.wa3)}}
+      >
+        {question.wa3}
+      </button>
+    ]
+      
+    setAnswerButtons(
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(2, 1fr)", // Two columns with equal width
+        gridTemplateRows: "repeat(2, 1fr)",    // Two rows with equal height
+        padding: "2vh"
+      }}
+      >
+        {randomizedIndexList[qIndex]?.map(index => buttons[index])}
+      </div>
+    )
+  }, [qIndex, viewOnly, givenAnswers[qIndex]], randomizedIndexList.length)
+  
+  const navigateToQuestion = questions.map((q, index) => (
+    <button key={"navToQ" + index} 
+    style={
+      { 
+        width: "5vh", 
+        height: "5vh",
+        background: viewOnly ? (q.a.toUpperCase() == givenAnswers[index].toUpperCase() ? "green" : "red"): index == qIndex ? "green" : givenAnswers[index] !== "" ? "yellow" : "lightgray"
+      }} 
+    onClick={() => setQuestionIndex(index)}>
+      {index + 1}
+    </button>
+  ));
+
+  return (
+  <div>
+    <div>{question.q}</div>
+    <div>
+      {answerButtons}
+    </div>
+    <div className='d-flex flex-row'>
+      {navigateToQuestion}
+    </div>
+  </div>
+  )
 }
 
 const SolvingMem = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
-  return (<div>Solving mem</div>)
+  const [first, setClicked] = useState(0)
+  const [second, setSecond] = useState(0)
+  const [correctlyPaired, setCorrectlyPaired] = useState([])
+  const [answerButtons, setAnswerButtons] = useState(<></>)
+  const [randomizedIndexList, setRandomIndexes] = useState([])
+  const [showBothClicked, setShowBothClicked] = useState(false)
+
+  console.log(first)
+  console.log(correctlyPaired)
+
+  const handleBothClicked = (second) =>{
+    console.log("2 CLICKED")
+    console.log(first, second)
+    if(first == -1 * second){
+      let index = Math.max(first, second) - 1;
+      //CORRECT
+      setCorrectlyPaired(prev => [...prev, index])
+      let temp = [...givenAnswers]
+      temp[index] = questions[index].a
+      setGivenAnswers(temp)
+    }
+    
+    showBothForABit(second)
+  }
+
+  const showBothForABit = (second) => {
+    setSecond(second)
+    setShowBothClicked(true)
+
+    setTimeout(()=>{
+      setSecond(0)
+      setClicked(0)
+      setShowBothClicked(false)
+    }, 1000)
+  }
+
+  const handleClickAsoc = (i) => {
+    if(first != 0) handleBothClicked(i)
+    else {
+      setClicked(i)
+    }
+  };
+
+  useEffect(()=>{
+    if(viewOnly==false){
+      setCorrectlyPaired([])
+      setClicked(0)
+    }
+  }, [viewOnly])
+
+  useEffect(()=>{
+    if(viewOnly==false){
+      const normalIndexes = Array(questions.length * 2).fill('').map((q,i) => i)
+      setRandomIndexes(shuffleArray(normalIndexes))
+    }
+  }, [viewOnly])
+
+  useEffect(()=>{
+
+    let buttons = []
+    
+    questions.forEach((q, i) => {
+      buttons.push(
+        <button
+        className='memoryButton'
+        disabled={viewOnly || showBothClicked || correctlyPaired.findIndex(c => c==i) >= 0} 
+        onClick={()=>{handleClickAsoc(i + 1)}}
+        style={
+          {
+            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "green" : (first == (i + 1) || second == (i + 1))? "yellow" : "initial",
+            width: "20vh",
+            height: "20vh"
+          }
+        }
+        >
+          {viewOnly || correctlyPaired.findIndex(c => c==i) >= 0 || first == (i + 1) || second == (i + 1) ? q.q : ""}
+        </button>
+      )
+      buttons.push(
+        <button
+        className='memoryButton'
+        disabled={viewOnly || showBothClicked  || correctlyPaired.findIndex(c => c==i) >= 0} 
+        onClick={()=>{handleClickAsoc(-1 * (i + 1))}}
+        style={
+          {
+            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "green" : (first == (-1 *(i+1)) || second == (-1 *(i+1)) ) ? "yellow" : "initial",
+            width: "20vh",
+            height: "20vh"
+          }
+        }
+        >
+          {viewOnly || correctlyPaired.findIndex(c => c==i) >= 0 || first == (-1 *(i+1)) || second == (-1 *(i+1))? q.a : ""}
+        </button>
+      )
+    })
+
+    setAnswerButtons(buttons)
+    
+  },[viewOnly, correctlyPaired.length, first, showBothClicked])
+
+  const randomizedButtons = randomizedIndexList.map(index => answerButtons[index])
+
+  return (
+  <div style={{
+    display: "grid",
+    gridTemplateColumns: `repeat(${Math.floor(Math.sqrt(questions.length * 2))}, 1fr)`, // Two columns with equal width
+    //gridTemplateRows: "repeat(2, 1fr)",    // Two rows with equal height
+    padding: "2vh"
+  }}>
+   {randomizedButtons}
+  </div>
+  )
 }
 
 const shuffleArray = (array) => {

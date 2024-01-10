@@ -11,11 +11,14 @@ const Categories = () => {
   useEffect(
     ()=>{
         //API CALL
-        // const result = getCategories();
+        getCategories().then(data=>{
+          const result = data.filter(c => c.showOnHomePage)
+          setCategories(result);
+        });
         
-        const result = DummyCategories.filter(c => c.showOnHomePage)
         
-        setCategories(result);
+        
+        
     }, []
   )
 

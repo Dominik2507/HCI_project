@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Quizes } from '../api/dummyData';
-import PopularQuiz from '../components/HomePage/PopularQuiz';
+import Quiz from '../components/Quiz/Quiz';
 import { useParams } from 'react-router-dom';
+import { getQuizList } from '../api/api';
 
 const ViewQuizzes = () => {
     const [quizList, setQuizList] = useState([])
@@ -9,9 +10,9 @@ const ViewQuizzes = () => {
     
     useEffect(()=>{
       //api call
-      //result = getPopularQuizes()
-      const result = Quizes;
-      setQuizList(result);
+      getQuizList(kategorija).then(data => {
+        setQuizList(data);
+      })
     },[])
   
     let quizComponents = []
@@ -20,14 +21,14 @@ const ViewQuizzes = () => {
       if(i == (quizList.length-1)){
           quizComponents.push(
               <div key={"q-"+i} className="row row-cols-2 mt-2">
-                  <PopularQuiz quiz={quizList[i]}/>
+                  <Quiz quiz={quizList[i]}/>
               </div>
               )
       }else{
           quizComponents.push(
               <div key={"q-"+i} className="row row-cols-2 mt-4">
-                  <PopularQuiz quiz={quizList[i]}/>
-                  <PopularQuiz quiz={quizList[i+1]}/>
+                  <Quiz quiz={quizList[i]}/>
+                  <Quiz quiz={quizList[i+1]}/>
               </div>
               )
       }
