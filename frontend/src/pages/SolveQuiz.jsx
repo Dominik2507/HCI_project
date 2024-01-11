@@ -56,16 +56,16 @@ const SolveQuiz = ({isAuthenticated}) => {
    } 
   }, [])
 
-  // useEffect(() => {
-  //   if(isRunning){
-  //     const intervalId = setInterval(() => {
-  //       setTimer((prevSeconds) => (prevSeconds !== undefined ? prevSeconds + 1 : 0));
-  //     }, 1000);
+  useEffect(() => {
+    if(isRunning){
+      const intervalId = setInterval(() => {
+        setTimer((prevSeconds) => (prevSeconds !== undefined ? prevSeconds + 1 : 0));
+      }, 1000);
   
-  //     return () => clearInterval(intervalId);
-  //   }
+      return () => clearInterval(intervalId);
+    }
     
-  // }, [isRunning]);
+  }, [isRunning]);
 
   return (
     quiz ? <div className='d-flex flex-column'>
