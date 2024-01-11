@@ -137,3 +137,11 @@ export const getQuestionsForQuiz = async (id) => {
     throw error;
   }
 }
+
+export const saveQuiz = async (data) => {
+  if(data.id == null){
+    //NOVI KVIZ
+  }else{
+    //EDITED STARI KVIZ
+  }
+}

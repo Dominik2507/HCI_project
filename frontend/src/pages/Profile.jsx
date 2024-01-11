@@ -47,7 +47,7 @@ const Profile = () => {
         </div>
         <div>
           <h1>Napravljeni kvizovi</h1>
-          {profileData && <QuizList quizList={profileData.quizes}/>}
+          {profileData && <QuizList allowEdit={true} quizList={profileData.quizes}/>}
         </div>
     </div>
   );

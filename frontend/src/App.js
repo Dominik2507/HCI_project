@@ -13,6 +13,7 @@ import BeforeCreateQuizPage from './pages/BeforeCreateQuizPage';
 import CreateQuiz from './pages/CreateQuiz';
 import SolveQuiz from './pages/SolveQuiz';
 import RegisterPage from './pages/RegisterPage';
+import EditQuiz from './pages/EditQuiz';
 
 const App = () => {
   const [isAuthenticated, setAuthentication]= useState(!!localStorage.getItem('token'));
@@ -39,6 +40,7 @@ const App = () => {
           <Route path='/kviz/:imeKviza' element={<SolveQuiz isAuthenticated={isAuthenticated}/>}/>
 
           <Route path='/stvaranjeKviza' element={isAuthenticated ? <CreateQuiz/>: <Navigate to="/prijava"/>}/>
+          <Route path='/urediKviz/:kvizName/:id' element={isAuthenticated ? <EditQuiz/>: <Navigate to="/prijava"/>}/>
           <Route path="/profil" element={isAuthenticated ? <Profile /> : <Navigate to="/prijava" /> }/>
           
           

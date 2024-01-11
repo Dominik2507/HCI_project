@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faClock} from "@fortawesome/free-solid-svg-icons"
+import {faClock, faEdit} from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom';
 
 const Quiz = (props) => {
-  const {quiz} = props;
+  const {quiz, allowEdit} = props;
   const navigate = useNavigate();
 
   return (
@@ -25,7 +25,7 @@ const Quiz = (props) => {
         <img src={quiz.image} style={{width: "30%"}}></img>
         <div className='d-flex flex-column justify-content-between' style={{width: "70%"}}>
             <div>
-                <h1>{quiz.title}</h1>
+                <h1>{quiz.title} {allowEdit ? <FontAwesomeIcon icon={faEdit} onClick={(e)=>{e.stopPropagation(); navigate(`/urediKviz/${quiz.title}/${quiz.id}`)}}/>: <></>}</h1>
                 <div>{quiz.author}</div>
             </div>
             <div className='d-flex flex-row justify-content-between p-3'>

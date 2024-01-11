@@ -3,48 +3,56 @@ import {faBook, faEarthEurope, faBasketball, faMusic, faBurger, faFilm, faFlask,
 export const Categories = [
     {
         title: "Geografija",
+        id: 1,
         showOnHomePage: true,
         icon: faEarthEurope,
         pagelink: "/kategorije/geografija"
     },
     {
         title: "Povijest",
+        id: 4,
         showOnHomePage: true,
         icon: faBook,
         pagelink: "/kategorije/povijest"
     },
     {
         title: "Sport",
+        id: 5,
         showOnHomePage: true,
         icon: faBasketball,
         pagelink: "/kategorije/sport"
     },
     {
         title: "Glazba",
+        id: 2,
         showOnHomePage: true,
         icon: faMusic,
         pagelink: "/kategorije/glazba"
     },
     {
         title: "Hrana",
+        id: 3,
         showOnHomePage: false,
         icon: faBurger,
         pagelink: "/kategorije/hrana"
     },
     {
         title: "Film",
+        id: 6,
         showOnHomePage: false,
         icon: faFilm,
         pagelink: "/kategorije/film"
     },
     {
         title: "Znanost",
+        id: 7,
         showOnHomePage: false,
         icon: faFlask,
         pagelink: "/kategorije/znanost"
     },
     {
         title: "Književnost",
+        id: 8,
         showOnHomePage: false,
         icon: faBookOpen,
         pagelink: "/kategorije/knjizevnost"
@@ -91,8 +99,8 @@ export const Quizes = [
         id: 4,
         author: "User321",
         authorId: 1,
-        category: "Kultura",
-        categoryId: 4,
+        category: "Geografija",
+        categoryId: 1,
         quizType: "Višestruki izbor",
         quizTypeId: 3,
         duration: 30,

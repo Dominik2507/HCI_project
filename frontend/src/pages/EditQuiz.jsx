@@ -6,9 +6,12 @@ import AddQuestion from '../components/CreateQuiz/AddQuestion';
 import Question from '../components/CreateQuiz/Question';
 import Dropzone from "react-dropzone"
 import EditQuestion from '../components/CreateQuiz/EditQuestion';
-import { getCategories, getQuitTypes, saveQuiz } from '../api/api';
+import { getCategories, getQuestionsForQuiz, getQuitTypes, getQuizById, saveQuiz } from '../api/api';
+import { useParams } from 'react-router-dom';
 
-const CreateQuiz = () => {
+const EditQuiz = () => {
+  const {id} = useParams();
+
   const [quizName, setQuizName] = useState("")
   const [duration, setDuration] = useState(30)
   const [quizImage, setQuizImage] = useState(null)
@@ -31,12 +34,28 @@ const CreateQuiz = () => {
 
 
   useEffect(()=>{
+    let tipovi;
     getQuitTypes().then(data=>{
+      tipovi = data;
       setQuizTypeList(data)
     })
 
+    let kategorije;
     getCategories().then(data => {
+      kategorije = data;
       setCategoryList(data)
+    })
+
+    getQuizById(id).then(data =>{
+        setQuizName(data.title)
+        setDuration(data.duration)
+        setCategory(kategorije.findIndex(k =>k.id =  data.categoryId))
+        setQuizType(tipovi.findIndex(t => t.id == data.quizTypeId))
+        setQuizImage(data.image)
+    })
+
+    getQuestionsForQuiz(id).then(data => {
+        setCreatedQuestions(data)
     })
 
   }, [])
@@ -73,7 +92,7 @@ const CreateQuiz = () => {
   const handleSaveQuiz = () => {
     const data = {
       "name": quizName,
-      "id": null,
+      "id": id,
       "authorToken": localStorage.getItem("token"),
       "category": categoryList[categoryIndex],
       "quizType": quizTypesList[quizTypeIndex],
@@ -135,7 +154,7 @@ const CreateQuiz = () => {
     <div>
         <div>
           <h1>
-            Kreiraj novi kviz
+            Uredi kviz
           </h1>
         </div>
 
@@ -184,4 +203,4 @@ const CreateQuiz = () => {
   );
 };
 
-export default CreateQuiz;
+export default EditQuiz;
