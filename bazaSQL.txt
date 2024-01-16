@@ -1,0 +1,72 @@
+CREATE TABLE Categories
+(
+  title VARCHAR NOT NULL,
+  id INT NOT NULL,
+  showOnHomePage BOOLEAN NOT NULL,
+  icon VARCHAR NOT NULL,
+  pagelink VARCHAR NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (title),
+  UNIQUE (pagelink)
+);
+
+CREATE TABLE "user"
+(
+  username VARCHAR NOT NULL,
+  id INT NOT NULL,
+  email VARCHAR NOT NULL,
+  token VARCHAR NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (username),
+  UNIQUE (email),
+  UNIQUE (token)
+);
+
+CREATE TABLE QuizTypes
+(
+  name VARCHAR NOT NULL,
+  id INT NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (name)
+);
+
+CREATE TABLE ProfileData
+(
+  userImage VARCHAR,
+  userId INT NOT NULL,
+  PRIMARY KEY (userId),
+  FOREIGN KEY (userId) REFERENCES "user"(id)
+);
+
+CREATE TABLE Result
+(
+  taken INT NOT NULL,
+  solvedQuestion INT NOT NULL,
+  timeSpentSolving FLOAT NOT NULL,
+  userId INT NOT NULL,
+  FOREIGN KEY (userId) REFERENCES "user"(id)
+);
+
+CREATE TABLE Quizes
+(
+  id INT NOT NULL,
+  title VARCHAR NOT NULL,
+  duration FLOAT NOT NULL,
+  image VARCHAR NOT NULL,
+  categoryId INT NOT NULL,
+  quizTypeId INT NOT NULL,
+  authorId INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (categoryId) REFERENCES Categories(id),
+  FOREIGN KEY (quizTypeId) REFERENCES QuizTypes(id),
+  FOREIGN KEY (authorId) REFERENCES "user"(id)
+);
+
+CREATE TABLE Questions
+(
+  question VARCHAR NOT NULL,
+  correctAnswer VARCHAR NOT NULL,
+  wrongAnswers JSONB NOT NULL,
+  quizId INT NOT NULL,
+  FOREIGN KEY (quizId) REFERENCES Quizes(id)
+);
