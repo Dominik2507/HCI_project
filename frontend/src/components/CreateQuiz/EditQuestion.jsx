@@ -23,25 +23,25 @@ const EditQuestion = (props) => {
           quizType.id == 1 ? 
           <>
             <div className='d-flex flex-column'>
-              <label>Pitanje</label><input value={editedQuestion.q} onChange={(e) => {setEditedQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
-              <label>Odgovor</label><input value={editedQuestion.a} onChange={(e) => {setEditedQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
+              <label>Pitanje</label><input class="form-control"  value={editedQuestion.q} onChange={(e) => {setEditedQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
+              <label>Odgovor</label><input class="form-control" value={editedQuestion.a} onChange={(e) => {setEditedQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
             </div>
           </>:
           quizType.id == 2 || quizType.id == 4 ? 
           <>
             <div className='d-flex flex-column'>
-              <label>Prvi pojam</label><input value={editedQuestion.q} onChange={(e) => {setEditedQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
-              <label>Drugi pojam</label><input value={editedQuestion.a} onChange={(e) => {setEditedQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
+              <label>Prvi pojam</label><input class="form-control" value={editedQuestion.q} onChange={(e) => {setEditedQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
+              <label>Drugi pojam</label><input class="form-control" value={editedQuestion.a} onChange={(e) => {setEditedQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
             </div>
           </>:
           quizType.id == 3 ? 
           <>
             <div className='d-flex flex-column'>
-              <label>Pitanje</label><input value={editedQuestion.q} onChange={(e) => {setEditedQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
-              <label>Točan odgovor</label><input value={editedQuestion.a} onChange={(e) => {setEditedQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
-              <label>Krivi odgovor</label><input value={editedQuestion.wa1} onChange={(e) => {setEditedQuestion(prev => {return {...prev, wa1: e.target.value}})}}></input>
-              <label>Krivi odgovor</label><input value={editedQuestion.wa2} onChange={(e) => {setEditedQuestion(prev => {return {...prev, wa2: e.target.value}})}}></input>
-              <label>Krivi odgovor</label><input value={editedQuestion.wa3} onChange={(e) => {setEditedQuestion(prev => {return {...prev, wa3: e.target.value}})}}></input>
+              <label>Pitanje</label><input class="form-control" value={editedQuestion.q} onChange={(e) => {setEditedQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
+              <label>Točan odgovor</label><input class="form-control" value={editedQuestion.a} onChange={(e) => {setEditedQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
+              <label>Krivi odgovor</label><input class="form-control" value={editedQuestion.wa1} onChange={(e) => {setEditedQuestion(prev => {return {...prev, wa1: e.target.value}})}}></input>
+              <label>Krivi odgovor</label><input class="form-control" value={editedQuestion.wa2} onChange={(e) => {setEditedQuestion(prev => {return {...prev, wa2: e.target.value}})}}></input>
+              <label>Krivi odgovor</label><input class="form-control" value={editedQuestion.wa3} onChange={(e) => {setEditedQuestion(prev => {return {...prev, wa3: e.target.value}})}}></input>
             </div>
           </>:
           <></>

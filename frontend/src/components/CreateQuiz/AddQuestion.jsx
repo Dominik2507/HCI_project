@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import React, { useState } from 'react';
 
 const AddQuestion = (props) => {
@@ -11,7 +12,7 @@ const AddQuestion = (props) => {
   }
 
   return (
-    <div className='d-flex flex-column p-3'>
+    <div className='d-flex flex-column p-3' style={{fontSize:'20px'}}>
         <div>Dodaj novo pitanje</div>
         <form className='d-flex flex-column w-25' onSubmit={handleSubmit}>
 
@@ -19,30 +20,35 @@ const AddQuestion = (props) => {
           quizType.id == 1 ? 
           <>
             <div className='d-flex flex-column'>
-              <label>Pitanje</label><input value={newQuestion.q} onChange={(e) => {setNewQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
-              <label>Odgovor</label><input value={newQuestion.a} onChange={(e) => {setNewQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
+              <label>Pitanje</label><input class="form-control" value={newQuestion.q} onChange={(e) => {setNewQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
+              <label>Odgovor</label><input class="form-control" value={newQuestion.a} onChange={(e) => {setNewQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
             </div>
           </>:
           quizType.id == 2 || quizType.id == 4 ? 
           <>
             <div className='d-flex flex-column'>
-              <label>Prvi pojam</label><input value={newQuestion.q} onChange={(e) => {setNewQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
-              <label>Drugi pojam</label><input value={newQuestion.a} onChange={(e) => {setNewQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
+              <label>Prvi pojam</label><input class="form-control" value={newQuestion.q} onChange={(e) => {setNewQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
+              <label>Drugi pojam</label><input class="form-control" value={newQuestion.a} onChange={(e) => {setNewQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
             </div>
           </>:
           quizType.id == 3 ? 
           <>
-            <div className='d-flex flex-column'>
-              <label>Pitanje</label><input value={newQuestion.q} onChange={(e) => {setNewQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
-              <label>Točan odgovor</label><input value={newQuestion.a} onChange={(e) => {setNewQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
-              <label>Krivi odgovor</label><input value={newQuestion.wa1} onChange={(e) => {setNewQuestion(prev => {return {...prev, wa1: e.target.value}})}}></input>
-              <label>Krivi odgovor</label><input value={newQuestion.wa2} onChange={(e) => {setNewQuestion(prev => {return {...prev, wa2: e.target.value}})}}></input>
-              <label>Krivi odgovor</label><input value={newQuestion.wa3} onChange={(e) => {setNewQuestion(prev => {return {...prev, wa3: e.target.value}})}}></input>
+            <div className='d-flex flex-column p-3'>
+              <label>Pitanje</label><input class="form-control" value={newQuestion.q} onChange={(e) => {setNewQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
+              <label>Točan odgovor</label><input class="form-control" value={newQuestion.a} onChange={(e) => {setNewQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
+              <label>Krivi odgovor</label><input class="form-control" value={newQuestion.wa1} onChange={(e) => {setNewQuestion(prev => {return {...prev, wa1: e.target.value}})}}></input>
+              <label>Krivi odgovor</label><input class="form-control" value={newQuestion.wa2} onChange={(e) => {setNewQuestion(prev => {return {...prev, wa2: e.target.value}})}}></input>
+              <label>Krivi odgovor</label><input class="form-control" value={newQuestion.wa3} onChange={(e) => {setNewQuestion(prev => {return {...prev, wa3: e.target.value}})}}></input>
             </div>
           </>:
           <></>
         }
-        <button type='submit'>Dodaj</button>
+        <Button variant="contained" style={{
+              width: "15vw",
+              color: "#000000",
+              backgroundColor: '#95BD54',
+              
+              }}  type='submit'>Dodaj</Button>
         </form>
     </div>
   );

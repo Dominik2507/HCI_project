@@ -34,7 +34,7 @@ const Categories = () => {
   }
 
   return (
-    <div className="border border-3 border-danger" style={
+    <div style={
         {
             width: "90vw",
             margin: "5vw",
@@ -43,7 +43,7 @@ const Categories = () => {
     }>
         <CategoriesTitle/>
         <div className='d-flex justify-content-center'>
-            <div className='d-flex flex-row gap-5 border border-2 border-success' 
+            <div className='d-flex flex-row gap-5' 
             style={{
             }}
             >

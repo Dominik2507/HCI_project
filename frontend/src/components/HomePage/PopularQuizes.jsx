@@ -33,7 +33,7 @@ const PopularQuizes = () => {
   }
 
   return (
-    <div className="bg-secondary w-100 pb-5" style={{width: "100%"}}>
+    <div className="w-100 pb-5" style={{width: "100%"}}>
         <div className="row">
             <h1> Popularni kvizovi </h1>
            

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PopularQuiz from '../components/Quiz/Quiz';
 import { getProfileData } from '../api/api';
 import QuizList from '../components/Quiz/QuizList';
+import { Button } from '@mui/material';
 
 const Profile = () => {
   const [profileData, setProfileData] = useState(undefined)
@@ -31,17 +32,17 @@ const Profile = () => {
         <div>
           <img src={profileData?.image} />
           <div className='d-flex flex-row justify-content-evenly'>
-            <div>
-              <div>Broj rješenih kvizova</div>
-              <div>{profileData?.results.taken}</div>
+            <div class='p-2' style={{background:'linear-gradient(to bottom, #EAE6D6, #93958F)'}}>
+              <div ><h4>Broj rješenih kvizova:</h4></div>
+              <div><h4>{profileData?.results.taken}</h4></div>
             </div>
-            <div>
-              <div>Broj točnih odgovora kvizova</div>
-              <div>{profileData?.results.solvedQuestions}</div>
+            <div class=' p-2 ' style={{background:'linear-gradient(to bottom, #EAE6D6, #93958F)'}}>
+              <div><h4>Broj točnih odgovora:</h4></div>
+              <div><h4>{profileData?.results.solvedQuestions}</h4></div>
             </div>
-            <div>
-              <div>Provedeno vrijeme rješavajući</div>
-              <div>{calculateDuration()}</div>
+            <div class='p-2' style={{background:'linear-gradient(to bottom, #EAE6D6, #93958F)'}}>
+              <div><h4>Vrijeme provedeno rješavajući:</h4></div>
+              <div><h4>{calculateDuration()}</h4></div>
             </div>
           </div>
         </div>
