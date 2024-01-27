@@ -7,8 +7,8 @@ const PopularQuizes = () => {
 
   useEffect(()=>{
     //api call
-    getPopularQuizes().then(data=>{
-      setQuizList(data);
+    getPopularQuizes().then(response=>{
+      setQuizList(response.data);
     })
 
   },[])

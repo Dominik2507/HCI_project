@@ -10,8 +10,8 @@ const ViewQuizzes = () => {
     
     useEffect(()=>{
       //api call
-      getQuizList(kategorija).then(data => {
-        setQuizList(data);
+      getQuizList(kategorija).then(response => {
+        setQuizList(response.data);
       })
     },[])
   

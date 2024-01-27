@@ -31,12 +31,12 @@ const CreateQuiz = () => {
 
 
   useEffect(()=>{
-    getQuitTypes().then(data=>{
-      setQuizTypeList(data)
+    getQuitTypes().then(response=>{
+      setQuizTypeList(response.data)
     })
 
-    getCategories().then(data => {
-      setCategoryList(data)
+    getCategories().then(response => {
+      setCategoryList(response.data)
     })
 
   }, [])

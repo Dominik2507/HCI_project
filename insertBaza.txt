@@ -1,38 +1,38 @@
-INSERT INTO Categories (id, title, showOnHomePage, icon, pagelink) VALUES 
-    (1, 'Geografija', true, 'faEarthEurope', '/kategorije/geografija'),
-    (4, 'Povijest', true, 'faBook', '/kategorije/povijest'),
-    (5, 'Sport', true, 'faBasketball', '/kategorije/sport'),
-    (2, 'Glazba', true, 'faMusic', '/kategorije/glazba'),
-    (3, 'Hrana', false, 'faBurger', '/kategorije/hrana'),
-    (6, 'Film', false, 'faFilm', '/kategorije/film'),
-    (7, 'Znanost', false, 'faFlask', '/kategorije/znanost'),
-    (8, 'Književnost', false, 'faBookOpen', '/kategorije/knjizevnost');
+INSERT INTO categories (title, showOnHomePage, icon, pagelink) VALUES 
+    ('Geografija', true, 'faEarthEurope', '/kategorije/geografija'),
+    ('Povijest', true, 'faBook', '/kategorije/povijest'),
+    ('Sport', true, 'faBasketball', '/kategorije/sport'),
+    ('Glazba', true, 'faMusic', '/kategorije/glazba'),
+    ('Hrana', false, 'faBurger', '/kategorije/hrana'),
+    ('Film', false, 'faFilm', '/kategorije/film'),
+    ('Znanost', false, 'faFlask', '/kategorije/znanost'),
+    ('Književnost', false, 'faBookOpen', '/kategorije/knjizevnost');
 
-INSERT INTO "user" (id, username, email, token) VALUES 
-    (1, 'user321', 'user@mail', 'hakjdhkahdkjahdjkahskjfh'),
-    (2, 'MG073', 'gm@mail', 'qiruezroiqwzeriuqwziruqrwe');
+INSERT INTO "user" (username, email, password, token) VALUES 
+    ('user321', 'user@mail', 'abcd', 'hakjdhkahdkjahdjkahskjfh'),
+    ('MG073', 'gm@mail', 'abcd', 'qiruezroiqwzeriuqwziruqrwe');
 
-INSERT INTO QuizTypes (id, name) VALUES 
-    (1, 'Pitanje - odgovor'),
-    (2, 'Asocijacija'),
-    (3, 'Višestruki odgovor'),
-    (4, 'Memory');
+INSERT INTO QuizTypes (name) VALUES 
+    ('Pitanje - odgovor'),
+    ('Asocijacija'),
+    ('Višestruki odgovor'),
+    ('Memory');
 
 INSERT INTO ProfileData (userId, userImage) VALUES 
     (2, NULL),
     (1, NULL);
 
 
-INSERT INTO Result (taken, solvedQuestion, timeSpentSolving, userId) VALUES
+INSERT INTO Result (token, solvedQuestion, timeSpentSolving, userId) VALUES
     (10,58,400,2);
 
-INSERT INTO Quizes (id, title, authorId, categoryId, quizTypeId, duration, image) VALUES 
-    (1, 'Glavni gradovi', 1, 1, 1, 30, 'logo192.png'),
-    (2, 'Tko je autor', 2, 2, 2, 1000, 'logo192.png'),
-    (3, 'Tradicionalna jela', 1, 3, 4, 30, 'logo192.png'),
-    (4, 'Glavni gradovi', 1, 1, 3, 30, 'logo192.png');
+INSERT INTO Quizes (title, authorId, categoryId, quizTypeId, duration, image) VALUES 
+    ('Glavni gradovi', 1, 1, 1, 30, 'logo192.png'),
+    ('Tko je autor', 2, 2, 2, 1000, 'logo192.png'),
+    ('Tradicionalna jela', 1, 3, 4, 30, 'logo192.png'),
+    ('Glavni gradovi', 1, 1, 3, 30, 'logo192.png');
 
-INSERT INTO Questions (question, correctAnswer, wrongAnswers, quizId) VALUES 
-    ('Koji je glavni grad Italije?', 'Rim', '["Zagreb", "Ljubljana", "Berlin"]', 1),
-    ('Koji je glavni grad Japana?', 'Tokyo', '["Zagreb", "Ljubljana", "Berlin"]', 1),
-    ('Koji je glavni grad Turske?', 'Ankara', '["Zagreb", "Ljubljana", "Berlin"]', 1);
+INSERT INTO Questions (question, correctAnswer, w1, w2, w3, quizId) VALUES 
+    ('Koji je glavni grad Italije?', 'Rim', 'Zagreb', 'Ljubljana', 'Berlin', 1),
+    ('Koji je glavni grad Japana?', 'Tokyo', 'Zagreb', 'Ljubljana', 'Berlin', 1),
+    ('Koji je glavni grad Turske?', 'Ankara', 'Zagreb', 'Ljubljana', 'Berlin', 1);

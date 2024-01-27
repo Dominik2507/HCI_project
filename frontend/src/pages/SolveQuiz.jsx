@@ -43,13 +43,15 @@ const SolveQuiz = ({isAuthenticated}) => {
 
   useEffect(()=>{
    if(kvizId){
-    getQuizById(kvizId).then(data => {
-      setQuiz(data)
+    getQuizById(kvizId).then(response => {
+      console.log(response.data)
+      setQuiz(response.data[0])
     })
 
-    getQuestionsForQuiz(kvizId).then(data =>{
-      setQuestions(data)
-      setGivenAnswers(Array(data.length).fill(''));
+    getQuestionsForQuiz(kvizId).then(response =>{
+      console.log(response.data)
+      setQuestions(response.data)
+      setGivenAnswers(Array(response.data.length).fill(''));
     })
 
    

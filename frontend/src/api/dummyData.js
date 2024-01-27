@@ -4,56 +4,56 @@ export const Categories = [
     {
         title: "Geografija",
         id: 1,
-        showOnHomePage: true,
+        showonhomepage: true,
         icon: faEarthEurope,
         pagelink: "/kategorije/geografija"
     },
     {
         title: "Povijest",
         id: 4,
-        showOnHomePage: true,
+        showonhomepage: true,
         icon: faBook,
         pagelink: "/kategorije/povijest"
     },
     {
         title: "Sport",
         id: 5,
-        showOnHomePage: true,
+        showonhomepage: true,
         icon: faBasketball,
         pagelink: "/kategorije/sport"
     },
     {
         title: "Glazba",
         id: 2,
-        showOnHomePage: true,
+        showonhomepage: true,
         icon: faMusic,
         pagelink: "/kategorije/glazba"
     },
     {
         title: "Hrana",
         id: 3,
-        showOnHomePage: false,
+        showonhomepage: false,
         icon: faBurger,
         pagelink: "/kategorije/hrana"
     },
     {
         title: "Film",
         id: 6,
-        showOnHomePage: false,
+        showonhomepage: false,
         icon: faFilm,
         pagelink: "/kategorije/film"
     },
     {
         title: "Znanost",
         id: 7,
-        showOnHomePage: false,
+        showonhomepage: false,
         icon: faFlask,
         pagelink: "/kategorije/znanost"
     },
     {
         title: "Književnost",
         id: 8,
-        showOnHomePage: false,
+        showonhomepage: false,
         icon: faBookOpen,
         pagelink: "/kategorije/knjizevnost"
     }

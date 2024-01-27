@@ -54,8 +54,8 @@ const EditQuiz = () => {
         setQuizImage(data.image)
     })
 
-    getQuestionsForQuiz(id).then(data => {
-        setCreatedQuestions(data)
+    getQuestionsForQuiz(id).then(response => {
+        setCreatedQuestions(response.data)
     })
 
   }, [])

@@ -7,8 +7,8 @@ const Profile = () => {
   const [profileData, setProfileData] = useState(undefined)
 
   useEffect(()=>{
-    getProfileData().then((data)=>{
-      setProfileData(data)
+    getProfileData().then((response)=>{
+      setProfileData(response.data)
     })
     
   }, [])
