@@ -9,7 +9,10 @@ const api = axios.create({
 });
 
 export const login = async (credentials) => {
-  return api.post('/login', credentials)
+  return api.get('/login', { params: {
+    username: credentials.username,
+    password: credentials.password
+  }})
   .then(function (response) {
     return response.data;
   })
@@ -29,23 +32,14 @@ export const register = async (data) => {
 };
 
 export const logout = async () => {
-  const token = localStorage.getItem('token');
-  return api.post('/logout', {
-    token: token
-  })
-  .then(function (response) {
-    return response.data;
-  })
-  .catch(function (error) {
-    throw error;
-  });
+  localStorage.clear();
 };
 
 export const getUserInfo = async () => {
   const token = localStorage.getItem('token');
-  return api.post('/user', {
+  return api.get('/user', {params: {
     token: token
-  }).then(function(response) {
+  }}).then(function(response) {
     return response.data;
   }).catch(function (error) {
     throw error;
@@ -71,7 +65,11 @@ export const getPopularQuizes = async () => {
 }
 
 export const getQuizById = async (id) => {
-  return api.get('/quiz')
+  return api.get('/quiz', {
+    params: {
+      id: id
+    }
+  })
     .then(function(response) {
       return response.data;
     })
@@ -81,27 +79,40 @@ export const getQuizById = async (id) => {
 }
 
 export const saveQuizResults = async (quiz, questions, givenAnswers) => {
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
 
-  // TO DO: build send objest and post results
+
 }
 
 export const getProfileData = async () => {
-  try {
     const token = localStorage.getItem("token")
-    //const response = await api.get(`/profileData/${token}`);
-    const response = {
-      data: ProfileData
-    }
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+    console.log(token)
+    return api.get(`/user`, {
+      params: {
+        token: token
+      }
+    })
+    .then(function(response) {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch(function (error) {
+      throw error;
+    });
 }
 
 export const getQuizList = async (category) => {
-  const response = await api.get('/quizes/${category}');
-  return response.data;
+  return api.get('/quizes', {
+    params: {
+      id: category
+    }
+  })
+  .then(function(response) {
+    return response.data;
+  })
+  .catch(function (error) {
+    throw error;
+  });
 }
 
 export const getQuitTypes = async () => {
@@ -116,7 +127,11 @@ export const getQuitTypes = async () => {
 
 
 export const getQuestionsForQuiz = async (id) => {
-    return api.get('/quizQuestions/')
+    return api.get('/quizQuestions/', {
+      params: {
+        id: id
+      }
+    })
     .then(function(response) {
       return response.data;
     })
@@ -127,7 +142,13 @@ export const getQuestionsForQuiz = async (id) => {
 
 export const saveQuiz = async (data) => {
   if(data.id == null){
-    //NOVI KVIZ
+    return api.post('/createQuiz', data)
+    .then(function(response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      throw error;
+    })
   }else{
     //EDITED STARI KVIZ
   }

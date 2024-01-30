@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 var path = require('path');
 
+app.use(express.urlencoded());  // To parse URL-encoded bodies
+app.use(express.json()); //To parse JSON bodies
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -14,6 +17,7 @@ const quizRouter = require('./routes/quiz.routes');
 const quizTypesRouter = require('./routes/quizTypes.routes');
 const quizesRouter = require('./routes/quizes.routes');
 const quizQuestionsRouter = require('./routes/quizQuestions.routes');
+const createQuizRouter = require('./routes/createQuiz.routes');
 
 app.set('view engine', 'ejs');
 
@@ -33,6 +37,7 @@ app.use('/quiz', quizRouter);
 app.use('/quizTypes', quizTypesRouter);
 app.use('/quizes', quizesRouter);
 app.use('/quizQuestions', quizQuestionsRouter);
+app.use('/createQuiz', createQuizRouter);
 
 
 app.listen(8000);

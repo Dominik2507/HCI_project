@@ -33,7 +33,7 @@ const Profile = () => {
           <div className='d-flex flex-row justify-content-evenly'>
             <div>
               <div>Broj rješenih kvizova</div>
-              <div>{profileData?.results.taken}</div>
+              <div>{profileData?.results.token}</div>
             </div>
             <div>
               <div>Broj točnih odgovora kvizova</div>

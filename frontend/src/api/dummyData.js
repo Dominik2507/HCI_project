@@ -180,7 +180,7 @@ export const ProfileData = {
     token: "qiruezroiqwzeriuqwziruqrwe",
     image: "logo192.png",
     results: {
-        taken: 10,
+        token: 10,
         solvedQuestions: 58,
         timeSpentSolving: 400
     },
