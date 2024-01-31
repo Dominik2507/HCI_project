@@ -18,6 +18,8 @@ const quizTypesRouter = require('./routes/quizTypes.routes');
 const quizesRouter = require('./routes/quizes.routes');
 const quizQuestionsRouter = require('./routes/quizQuestions.routes');
 const createQuizRouter = require('./routes/createQuiz.routes');
+const editQuizRouter = require('./routes/editQuiz.routes');
+const saveResultRoutes = require('./routes/saveResult.routes');
 
 app.set('view engine', 'ejs');
 
@@ -38,6 +40,8 @@ app.use('/quizTypes', quizTypesRouter);
 app.use('/quizes', quizesRouter);
 app.use('/quizQuestions', quizQuestionsRouter);
 app.use('/createQuiz', createQuizRouter);
+app.use('/editQuiz', editQuizRouter);
+app.use('/saveResult', saveResultRoutes);
 
 
 app.listen(8000);
