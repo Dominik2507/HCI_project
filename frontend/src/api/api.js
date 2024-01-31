@@ -81,7 +81,29 @@ export const getQuizById = async (id) => {
 export const saveQuizResults = async (quiz, questions, givenAnswers) => {
   const token = localStorage.getItem("token");
 
+  let i = 0;
+  let correct = 0;
 
+  questions.forEach((element) => {
+      if (element.a === givenAnswers[i]) {
+        ++correct;
+      }
+      ++i;
+  })
+
+  let data = {
+    token: token,
+    solvedquestions: correct,
+    timespent: quiz.duration
+  }
+
+  return api.post('/saveResult', data)
+  .then(function(response) {
+    return response.data;
+  })
+  .catch(function(error) {
+    throw error;
+  })
 }
 
 export const getProfileData = async () => {
@@ -150,6 +172,12 @@ export const saveQuiz = async (data) => {
       throw error;
     })
   }else{
-    //EDITED STARI KVIZ
+    return api.post('/editQuiz', data)
+    .then(function(response) {
+      return response.data;
+    })
+    .catch(function(error) {
+      throw error;
+    })
   }
 }
