@@ -22,10 +22,6 @@ INSERT INTO ProfileData (userId, userImage) VALUES
     (2, NULL),
     (1, NULL);
 
-
-INSERT INTO Result (token, solvedQuestion, timeSpentSolving, userId) VALUES
-    (10,58,400,2);
-
 INSERT INTO Quizes (title, authorId, categoryId, quizTypeId, duration, image) VALUES 
     ('Glavni gradovi', 1, 1, 1, 30, 'logo192.png'),
     ('Tko je autor', 2, 2, 2, 1000, 'logo192.png'),
