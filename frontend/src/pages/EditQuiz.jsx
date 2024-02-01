@@ -8,7 +8,6 @@ import Dropzone from "react-dropzone"
 import EditQuestion from '../components/CreateQuiz/EditQuestion';
 import { getCategories, getQuestionsForQuiz, getQuitTypes, getQuizById, saveQuiz } from '../api/api';
 import { useParams } from 'react-router-dom';
-import { Button } from '@mui/material';
 
 const EditQuiz = () => {
   const {id} = useParams();
@@ -161,24 +160,24 @@ const EditQuiz = () => {
 
         <hr/>
 
-        <div className='d-flex flex-row m-2'  style={{fontSize:'20px'}} >
-        <div className='d-flex flex-column w-50 p-2'>
+        <div className='d-flex flex-row m-2'>
+          <div className='d-flex flex-column w-50 p-2 border border-4 border-danger'>
             <label>Unesi ime kviza</label>
-            <input class="form-control"  value={quizName} onChange={(e)=>setQuizName(e.target.value)} required></input>
-            <label>Tip kviza</label>
-            <select class="form-control" required onChange={handleChangeQuizType}>
+            <input value={quizName} onChange={(e)=>setQuizName(e.target.value)} required></input>
+            <label>Tip kviza <FontAwesomeIcon icon={faInfoCircle}/></label>
+            <select required onChange={handleChangeQuizType}>
               {quizOptions}
             </select>
             <label>Kategorija</label>
-            <select class="form-control" required onChange={(e) => {setCategory(e.target.value)}}>
+            <select required onChange={(e) => {setCategory(e.target.value)}}>
               {categoriesOptions}
             </select>
             <label>Trajanje</label>
-            <input class="form-control" type="number" min={0} value={duration} onChange={(e)=>{setDuration(e.target.value)}}/>
+            <input type="number" min={0} value={duration} onChange={(e)=>{setDuration(e.target.value)}}/>
             
             <Dropzone maxFiles={1} onDrop={acceptedFiles => {handleDroppendImages(acceptedFiles)}}>
               {({getRootProps, getInputProps}) => (
-                <section className='border border-success m-3 w-25'>
+                <section className='border border-2 border-secondary m-3 w-25'>
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
                     <p>Drag 'n' drop some files here, or click to select files</p>
@@ -187,15 +186,10 @@ const EditQuiz = () => {
               )}
             </Dropzone>
             
-            <Button variant="contained" style={{
-              width: "15vw",
-              color: "#000000",
-              backgroundColor: '#95BD54'
-              }} 
-              onClick={handleSaveQuiz}>Spremi</Button>
+            <button onClick={handleSaveQuiz}>Spremi</button>
           </div>
 
-          <div className='d-flex flex-column w-50 border border-success'>
+          <div className='d-flex flex-column w-50 border border-4 border-primary'>
             {questionComponents}
           </div>
           

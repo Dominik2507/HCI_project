@@ -35,7 +35,7 @@ const ViewQuizzes = () => {
     }
   
     return (
-      <div className="w-100 pb-5" style={{width: "100%"}}>
+      <div className="bg-secondary w-100 pb-5" style={{width: "100%"}}>
           <div className="row">
               <h1 className='text-center'> {kategorija.toUpperCase()} </h1>
              

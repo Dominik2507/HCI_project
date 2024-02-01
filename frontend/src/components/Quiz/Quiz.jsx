@@ -9,7 +9,7 @@ const Quiz = (props) => {
 
   return (
    
-    <div className="d-flex flex-row" 
+    <div className="bg-primary d-flex flex-row" 
         onClick={()=>{
             navigate(`/kviz/${quiz.title}?id=${quiz.id}`)
         }}
@@ -19,8 +19,7 @@ const Quiz = (props) => {
             width: "41vw",
             height: "15vw",
             marginLeft: "6vw",
-            cursor: "pointer",
-            background:"linear-gradient(to bottom, rgba(116, 169, 29, 0.8), rgba(128, 171, 4, 0.35))"
+            cursor: "pointer"
         }
     }>
         <img src={quiz.image} style={{width: "30%"}}></img>
