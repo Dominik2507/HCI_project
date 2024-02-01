@@ -10,8 +10,6 @@ router.get('/', async function(req, res, next) {
 
     let id = user_info.id;
 
-    let user_image = await db.query('SELECT userimage FROM profiledata WHERE userid = $1', [id]);
-
     let results = await db.query('SELECT token, solvedQuestion, timeSpentSolving FROM result WHERE userid = $1', [id]);
     results = results.rows;
 
@@ -23,7 +21,6 @@ router.get('/', async function(req, res, next) {
         id: user_info.id,
         email: user_info.email,
         token: user_info.token,
-        image: user_image.rows[0].userimage,
         results: results,
         quizes: quizes.rows
     }

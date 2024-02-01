@@ -31,14 +31,6 @@ CREATE TABLE QuizTypes
   UNIQUE (name)
 );
 
-CREATE TABLE ProfileData
-(
-  userImage VARCHAR,
-  userId INT NOT NULL,
-  PRIMARY KEY (userId),
-  FOREIGN KEY (userId) REFERENCES "user"(id)
-);
-
 CREATE TABLE Result
 (
   solvedQuestion INT NOT NULL,
