@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../api/api';
-import { Button } from '@mui/material';
 
 const Login = (props) => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -20,35 +19,22 @@ const Login = (props) => {
   };
 
   return (
-    <div class='container p-5' style={{minHeight:'100vh'}}>
-      <div className='d-grid justify-content-center w-100 align-items-center' style={{minHeight:'50vh'}}>
-      <div>
-      <input class="form-control"
+    <div>
+      <input
         type="text"
         placeholder="Username"
         value={credentials.username}
         onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
       />
-     </div>
-     <div>
-      <input class="form-control"
+      <input
         type="password"
         placeholder="Password"
         value={credentials.password}
         onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
       />
-      </div>
-      <div>
-      <Button variant="contained" style={{
-        width: "15vw",
-        color: "#000000",
-        backgroundColor: '#95BD54'
-    }} onClick={handleLogin}>Prijava</Button>
-     </div>
+      <button onClick={handleLogin}>Prijava</button>
       <div> Nemaš račun? <Link to="/registracija">Registriraj se</Link></div>
     </div>
-    </div>
-    
   );
 };
 
