@@ -6,6 +6,7 @@ export const Categories = [
         id: 1,
         showonhomepage: true,
         icon: faEarthEurope,
+        color:'darkblue',
         pagelink: "/kategorije/geografija"
     },
     {
@@ -13,6 +14,7 @@ export const Categories = [
         id: 4,
         showonhomepage: true,
         icon: faBook,
+        color:'darkred',
         pagelink: "/kategorije/povijest"
     },
     {
@@ -20,6 +22,7 @@ export const Categories = [
         id: 5,
         showonhomepage: true,
         icon: faBasketball,
+        color:'darkorange',
         pagelink: "/kategorije/sport"
     },
     {
@@ -27,6 +30,7 @@ export const Categories = [
         id: 2,
         showonhomepage: true,
         icon: faMusic,
+        color:'black',
         pagelink: "/kategorije/glazba"
     },
     {

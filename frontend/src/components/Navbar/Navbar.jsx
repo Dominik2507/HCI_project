@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavbarButton from './NavbarButton';
+import { Button } from '@mui/material';
 
 const Navbar = ({ isAuthenticated }) => {
 
@@ -13,19 +14,19 @@ const Navbar = ({ isAuthenticated }) => {
     setSearchExpanded(prev => !prev)
   }
 
-  const handleSearch = () =>{
+  //const handleSearch = () =>{
 
-  }
+  //}
 
   return (
-    <nav>
-      <div className="container-fluid navbar bg-success">
+    <nav style={{background: 'linear-gradient(to bottom, #7bb51e, #b0d077)', color:'Background'}}>
+      <div className="container-fluid navbar">
         <NavbarTitle/>
-        <div className='d-flex flex-row justify-content-end border me-2 gap-5'>
+        <div className='d-flex flex-row justify-content-end me-2 gap-5'>
 
           
           <button className="btn btn-outline-success position-relative" onClick={()=>{toggleSearchExpanded()}}>
-            <FontAwesomeIcon icon={faSearch} color='white'/>
+            <FontAwesomeIcon icon={faSearch} color='black'/>
             {
             isSearchExpanded &&
             <form className="d-flex" style={{width: "20vw", position: "absolute", top: 0, right: "50px"}}>
@@ -71,7 +72,11 @@ const LogoutButton = () => {
   };
 
   return (
-      <button onClick={handleLogout}>Odjavi se</button>
+      <Button variant="contained" style={{
+        width: "15vw",
+        color: "#000000",
+        backgroundColor: '#95BD54'
+    }} onClick={handleLogout}>Odjavi se</Button>
   );
 };
 
