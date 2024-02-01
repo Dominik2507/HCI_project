@@ -1,147 +1,183 @@
 // api.js
-import axios from 'axios';
 import { Categories, ProfileData, QuizTypes, Quizes, users, Pitanja } from './dummyData';
+import axios from 'axios';
 
-const API_BASE_URL = 'http://your-fastapi-backend-url';
+const API_BASE_URL = 'http://localhost:8000/';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
 export const login = async (credentials) => {
-  try {
-    //const response = await api.post('/login', credentials);
-    //return response.data;
-    return users[1]
-  } catch (error) {
+  return api.get('/login', { params: {
+    username: credentials.username,
+    password: credentials.password
+  }})
+  .then(function (response) {
+    return response.data;
+  })
+  .catch(function (error) {
     throw error;
-  }
+  });
 };
 
 export const register = async (data) => {
-  try {
-    //const response = await api.post('/login', credentials);
-    //return response.data;
-    return users[1]
-  } catch (error) {
+  return api.post('/register', data)
+  .then(function (response) {
+    return response.data;
+  })
+  .catch(function (error) {
     throw error;
-  }
+  });
 };
 
 export const logout = async () => {
-  try {
-    const response = await api.post('/logout');
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  localStorage.clear();
 };
 
 export const getUserInfo = async () => {
-  try {
-    const response = await api.get('/user');
+  const token = localStorage.getItem('token');
+  return api.get('/user', {params: {
+    token: token
+  }}).then(function(response) {
     return response.data;
-  } catch (error) {
+  }).catch(function (error) {
     throw error;
-  }
+  });
 };
 
 export const getCategories = async () => {
-  try {
-    //const response = await api.get('/categories');
-    const response = {
-      data: Categories
-    }
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+    return api.get('/categories')
+    .then(response => response.data)
+    .catch(function (error) {
+      throw error;
+    });
 };
 
 export const getPopularQuizes = async () => {
-  try {
-    //const response = await api.get('/popularQuizes');
-    const response = {
-      data: Quizes
-    }
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  return api.get('/popularQuizes')
+    .then(function(response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      throw error;
+    });
 }
 
 export const getQuizById = async (id) => {
-  try {
-    //const response = await api.get(`/quiz/${id}`);
-    const response = {
-      data: Quizes.find(q=> q.id == id)
+  return api.get('/quiz', {
+    params: {
+      id: id
     }
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  })
+    .then(function(response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      throw error;
+    });
 }
 
 export const saveQuizResults = async (quiz, questions, givenAnswers) => {
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
 
-  // TO DO: build send objest and post results
+  let i = 0;
+  let correct = 0;
+
+  questions.forEach((element) => {
+      if (element.a === givenAnswers[i]) {
+        ++correct;
+      }
+      ++i;
+  })
+
+  let data = {
+    token: token,
+    solvedquestions: correct,
+    timespent: quiz.duration
+  }
+
+  return api.post('/saveResult', data)
+  .then(function(response) {
+    return response.data;
+  })
+  .catch(function(error) {
+    throw error;
+  })
 }
 
 export const getProfileData = async () => {
-  try {
     const token = localStorage.getItem("token")
-    //const response = await api.get(`/profileData/${token}`);
-    const response = {
-      data: ProfileData
-    }
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+    console.log(token)
+    return api.get(`/user`, {
+      params: {
+        token: token
+      }
+    })
+    .then(function(response) {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch(function (error) {
+      throw error;
+    });
 }
 
 export const getQuizList = async (category) => {
-  try {
-    //const response = await api.get(`/quizes/${category}`);
-    const response = {
-      data: Quizes
+  return api.get('/quizes', {
+    params: {
+      id: category
     }
+  })
+  .then(function(response) {
     return response.data;
-  } catch (error) {
+  })
+  .catch(function (error) {
     throw error;
-  }
+  });
 }
 
 export const getQuitTypes = async () => {
-  try {
-    //const response = await api.get(`/quizTypes`);
-    const response = {
-      data: QuizTypes
-    }
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  return api.get('/quizTypes')
+    .then(function(response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      throw error;
+    });
 }
 
 
 export const getQuestionsForQuiz = async (id) => {
-  try {
-    //const response = await api.get(`/quizQuestions/${id}`);
-    const response = {
-      data: Pitanja[0].questions
-    }
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+    return api.get('/quizQuestions/', {
+      params: {
+        id: id
+      }
+    })
+    .then(function(response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      throw error;
+    });
 }
 
 export const saveQuiz = async (data) => {
   if(data.id == null){
-    //NOVI KVIZ
+    return api.post('/createQuiz', data)
+    .then(function(response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      throw error;
+    })
   }else{
-    //EDITED STARI KVIZ
+    return api.post('/editQuiz', data)
+    .then(function(response) {
+      return response.data;
+    })
+    .catch(function(error) {
+      throw error;
+    })
   }
 }

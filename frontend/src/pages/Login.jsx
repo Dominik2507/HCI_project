@@ -10,17 +10,13 @@ const Login = (props) => {
   const {refresh} = props
   
   const handleLogin = async () => {
-    try {
-      const response = await login(credentials);
-      // Store the token in local storage or session storage
-      console.log(response)
-      localStorage.setItem('token', response.token);
-      // Redirect to a protected route
-      navigate('/');
-      refresh()
-    } catch (error) {
-      console.error('Login failed:', error);
-    }
+      login(credentials).then(response => {
+        console.log(response)
+        localStorage.setItem('token', response.data.token);
+        console.log(localStorage.getItem('token'))
+        navigate('/');
+        refresh()
+      });
   };
 
   return (

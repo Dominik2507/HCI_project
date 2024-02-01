@@ -8,8 +8,8 @@ const Profile = () => {
   const [profileData, setProfileData] = useState(undefined)
 
   useEffect(()=>{
-    getProfileData().then((data)=>{
-      setProfileData(data)
+    getProfileData().then((response)=>{
+      setProfileData(response.data)
     })
     
   }, [])
@@ -32,9 +32,11 @@ const Profile = () => {
         <div>
           <img src={profileData?.image} />
           <div className='d-flex flex-row justify-content-evenly'>
+
             <div class='p-2' style={{background:'linear-gradient(to bottom, #EAE6D6, #93958F)'}}>
               <div ><h4>Broj rješenih kvizova:</h4></div>
               <div><h4>{profileData?.results.taken}</h4></div>
+
             </div>
             <div class=' p-2 ' style={{background:'linear-gradient(to bottom, #EAE6D6, #93958F)'}}>
               <div><h4>Broj točnih odgovora:</h4></div>

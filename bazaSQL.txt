@@ -1,7 +1,7 @@
 CREATE TABLE Categories
 (
   title VARCHAR NOT NULL,
-  id INT NOT NULL,
+  id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
   showOnHomePage BOOLEAN NOT NULL,
   icon VARCHAR NOT NULL,
   pagelink VARCHAR NOT NULL,
@@ -13,9 +13,10 @@ CREATE TABLE Categories
 CREATE TABLE "user"
 (
   username VARCHAR NOT NULL,
-  id INT NOT NULL,
+  id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
   email VARCHAR NOT NULL,
   token VARCHAR NOT NULL,
+  password VARCHAR NOT NULL,
   PRIMARY KEY (id),
   UNIQUE (username),
   UNIQUE (email),
@@ -25,31 +26,23 @@ CREATE TABLE "user"
 CREATE TABLE QuizTypes
 (
   name VARCHAR NOT NULL,
-  id INT NOT NULL,
+  id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
   PRIMARY KEY (id),
   UNIQUE (name)
 );
 
-CREATE TABLE ProfileData
+CREATE TABLE Result
 (
-  userImage VARCHAR,
+  solvedQuestion INT NOT NULL,
+  timeSpentSolving FLOAT NOT NULL,
   userId INT NOT NULL,
   PRIMARY KEY (userId),
   FOREIGN KEY (userId) REFERENCES "user"(id)
 );
 
-CREATE TABLE Result
-(
-  taken INT NOT NULL,
-  solvedQuestion INT NOT NULL,
-  timeSpentSolving FLOAT NOT NULL,
-  userId INT NOT NULL,
-  FOREIGN KEY (userId) REFERENCES "user"(id)
-);
-
 CREATE TABLE Quizes
 (
-  id INT NOT NULL,
+  id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
   title VARCHAR NOT NULL,
   duration FLOAT NOT NULL,
   image VARCHAR NOT NULL,
@@ -66,7 +59,9 @@ CREATE TABLE Questions
 (
   question VARCHAR NOT NULL,
   correctAnswer VARCHAR NOT NULL,
-  wrongAnswers JSONB NOT NULL,
+  w1 VARCHAR NOT NULL,
+  w2 VARCHAR NOT NULL,
+  w3 VARCHAR NOT NULL,
   quizId INT NOT NULL,
   FOREIGN KEY (quizId) REFERENCES Quizes(id)
 );

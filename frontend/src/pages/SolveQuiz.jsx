@@ -27,7 +27,7 @@ const SolveQuiz = ({isAuthenticated}) => {
   const handleEndQuiz = () => {
     setIsRunning(false)
     setIsViewingResults(true)
-    setResultsDialogOpen(true)
+    setResultsDialogOpen(true)  
   
     if(isAuthenticated) saveQuizResults(quiz, questions, givenAnswers)
   }
@@ -46,13 +46,14 @@ const SolveQuiz = ({isAuthenticated}) => {
 
   useEffect(()=>{
    if(kvizId){
-    getQuizById(kvizId).then(data => {
-      setQuiz(data)
+    getQuizById(kvizId).then(response => {
+      setQuiz(response.data)
     })
 
-    getQuestionsForQuiz(kvizId).then(data =>{
-      setQuestions(data)
-      setGivenAnswers(Array(data.length).fill(''));
+    getQuestionsForQuiz(kvizId).then(response =>{
+      setQuestions(response.data.questions)
+      console.log(quiz);
+      setGivenAnswers(Array(response.data.questions.length).fill(''));
     })
 
    
@@ -85,10 +86,12 @@ const SolveQuiz = ({isAuthenticated}) => {
           }
         }
       >
+  
         <div><Button disabled style={{ color: '#000000', textTransform: 'none' }}><h4>{quiz.author}</h4></Button></div>
         <div><Button disabled style={{ color: '#000000', textTransform: 'none'}}> <h4>{quiz.category}</h4></Button></div>
         <div><Button disabled style={{ color: '#000000', textTransform: 'none' }}><h4>{quiz.quizType}</h4></Button></div>
         <div><Button disabled style={{ color: '#000000' , textTransform: 'none'}}><h4>{isRunning ? timer + " / " : ""}</h4><h4>{quiz.duration} s </h4></Button></div>
+
         <div>
           {
             isRunning ? 
@@ -120,10 +123,10 @@ const SolveQuiz = ({isAuthenticated}) => {
           isRunning || isViewingResults? 
           <>
             {
-              quiz.quizTypeId == 1 ? <SolvingQA viewOnly={isViewingResults} questions={questions} givenAnswers={givenAnswers} setGivenAnswers={setGivenAnswers}/> :
-              quiz.quizTypeId == 2 ? <SolvingAsoc viewOnly={isViewingResults} questions={questions} givenAnswers={givenAnswers} setGivenAnswers={setGivenAnswers}/> :
-              quiz.quizTypeId == 3 ? <SolvingQMA viewOnly={isViewingResults} questions={questions} givenAnswers={givenAnswers} setGivenAnswers={setGivenAnswers}/> :
-              quiz.quizTypeId == 4 ? <SolvingMem viewOnly={isViewingResults} questions={questions} givenAnswers={givenAnswers} setGivenAnswers={setGivenAnswers}/> :
+              quiz.quiztypeid == 1 ? <SolvingQA viewOnly={isViewingResults} questions={questions} givenAnswers={givenAnswers} setGivenAnswers={setGivenAnswers}/> :
+              quiz.quiztypeid == 2 ? <SolvingAsoc viewOnly={isViewingResults} questions={questions} givenAnswers={givenAnswers} setGivenAnswers={setGivenAnswers}/> :
+              quiz.quiztypeid == 3 ? <SolvingQMA viewOnly={isViewingResults} questions={questions} givenAnswers={givenAnswers} setGivenAnswers={setGivenAnswers}/> :
+              quiz.quiztypeid == 4 ? <SolvingMem viewOnly={isViewingResults} questions={questions} givenAnswers={givenAnswers} setGivenAnswers={setGivenAnswers}/> :
               <></>
 
             }
@@ -148,6 +151,8 @@ const SolveQuiz = ({isAuthenticated}) => {
 
 
 const SolvingQA = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
+  console.log('AA0')
+  console.log(givenAnswers)
   const [qIndex, setQuestionIndex] = useState(0)
   const question = questions[qIndex]
   

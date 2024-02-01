@@ -4,7 +4,7 @@ export const Categories = [
     {
         title: "Geografija",
         id: 1,
-        showOnHomePage: true,
+        showonhomepage: true,
         icon: faEarthEurope,
         color:'darkblue',
         pagelink: "/kategorije/geografija"
@@ -12,7 +12,7 @@ export const Categories = [
     {
         title: "Povijest",
         id: 4,
-        showOnHomePage: true,
+        showonhomepage: true,
         icon: faBook,
         color:'darkred',
         pagelink: "/kategorije/povijest"
@@ -20,7 +20,7 @@ export const Categories = [
     {
         title: "Sport",
         id: 5,
-        showOnHomePage: true,
+        showonhomepage: true,
         icon: faBasketball,
         color:'darkorange',
         pagelink: "/kategorije/sport"
@@ -28,7 +28,7 @@ export const Categories = [
     {
         title: "Glazba",
         id: 2,
-        showOnHomePage: true,
+        showonhomepage: true,
         icon: faMusic,
         color:'black',
         pagelink: "/kategorije/glazba"
@@ -36,28 +36,28 @@ export const Categories = [
     {
         title: "Hrana",
         id: 3,
-        showOnHomePage: false,
+        showonhomepage: false,
         icon: faBurger,
         pagelink: "/kategorije/hrana"
     },
     {
         title: "Film",
         id: 6,
-        showOnHomePage: false,
+        showonhomepage: false,
         icon: faFilm,
         pagelink: "/kategorije/film"
     },
     {
         title: "Znanost",
         id: 7,
-        showOnHomePage: false,
+        showonhomepage: false,
         icon: faFlask,
         pagelink: "/kategorije/znanost"
     },
     {
         title: "Književnost",
         id: 8,
-        showOnHomePage: false,
+        showonhomepage: false,
         icon: faBookOpen,
         pagelink: "/kategorije/knjizevnost"
     }
@@ -184,7 +184,7 @@ export const ProfileData = {
     token: "qiruezroiqwzeriuqwziruqrwe",
     image: "logo192.png",
     results: {
-        taken: 10,
+        token: 10,
         solvedQuestions: 58,
         timeSpentSolving: 400
     },

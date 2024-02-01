@@ -11,11 +11,15 @@ const Categories = () => {
   useEffect(
     ()=>{
         //API CALL
-        // const result = getCategories();
+         getCategories().then(response => {
+            const data = response.data;
+            setCategories(data);
+         });
+         //console.log(result);
+
+        //console.warn(result);
         
-        const result = DummyCategories
-        
-        setCategories(result);
+        //const result = DummyCategories
     }, []
   )
 
