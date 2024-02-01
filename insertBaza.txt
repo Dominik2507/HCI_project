@@ -18,10 +18,6 @@ INSERT INTO QuizTypes (name) VALUES
     ('Višestruki odgovor'),
     ('Memory');
 
-INSERT INTO ProfileData (userId, userImage) VALUES 
-    (2, NULL),
-    (1, NULL);
-
 INSERT INTO Quizes (title, authorId, categoryId, quizTypeId, duration, image) VALUES 
     ('Glavni gradovi', 1, 1, 1, 30, 'logo192.png'),
     ('Tko je autor', 2, 2, 2, 1000, 'logo192.png'),
