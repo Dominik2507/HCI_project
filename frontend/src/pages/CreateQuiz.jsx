@@ -181,7 +181,6 @@ const CreateQuiz = () => {
           </div>
           
         </div>
-
         {
           isEditing ? <EditQuestion handleEditQuestion={handleSaveEdit} index={editingIndex} quizType={quizTypesList[quizTypeIndex]} question={createdQuestions[editingIndex]}/> :
           quizTypesList.length > 0 && <AddQuestion handleAddQuestion = {handleAddQuestion}  quizType={quizTypesList[quizTypeIndex]}/>

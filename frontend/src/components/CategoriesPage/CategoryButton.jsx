@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 
 
+
 const CategoryButton = (props) => {
   const category = props.category;
   const navigate = useNavigate();

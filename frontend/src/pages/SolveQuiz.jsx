@@ -132,13 +132,13 @@ const SolveQuiz = ({isAuthenticated}) => {
             }
           </>:
           <>
-            <div style={
+            <div ><img src={quiz.image} style={
               {
                 width: "50vh",
                 height: "50vh",
                 backgroundColor: 'gray'
               }
-            }>{quiz.image}</div>
+            }></img> </div>
 
             <div><Button disabled style={{ color: '#000000', textTransform: 'none' }}><h4> Pokreni kviz kako bi se prikazala pitanja</h4></Button></div>
           </>
