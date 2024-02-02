@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import CategoryButton from "./CategoryButton"
 import { getCategories } from '../../api/api';
+import { faEarthEurope, faBook, faBasketball,faMusic,faBurger,faFilm,faFlask,faBookOpen} from '@fortawesome/free-solid-svg-icons';
 import { Categories as DummyCategories } from '../../api/dummyData';
 import { useNavigate } from 'react-router-dom';
 

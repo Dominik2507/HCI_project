@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import { Button } from '@mui/material';
 const EditQuestion = (props) => {
   const {handleEditQuestion, quizType, question, index} = props;
   const [editedQuestion, setEditedQuestion] = useState(question)
@@ -20,21 +20,21 @@ const EditQuestion = (props) => {
         <form className='d-flex flex-column w-25' onSubmit={handleSubmit}>
 
         {
-          quizType.id == 1 ? 
+          quizType.name == 'Pitanje - odgovor' ? 
           <>
             <div className='d-flex flex-column'>
               <label>Pitanje</label><input class="form-control"  value={editedQuestion.q} onChange={(e) => {setEditedQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
               <label>Odgovor</label><input class="form-control" value={editedQuestion.a} onChange={(e) => {setEditedQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
             </div>
           </>:
-          quizType.id == 2 || quizType.id == 4 ? 
+         quizType.name == 'Asocijacija' || quizType.name == 'Memory' ? 
           <>
             <div className='d-flex flex-column'>
               <label>Prvi pojam</label><input class="form-control" value={editedQuestion.q} onChange={(e) => {setEditedQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
               <label>Drugi pojam</label><input class="form-control" value={editedQuestion.a} onChange={(e) => {setEditedQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
             </div>
           </>:
-          quizType.id == 3 ? 
+            quizType.name == 'Višestruki odgovor' ? 
           <>
             <div className='d-flex flex-column'>
               <label>Pitanje</label><input class="form-control" value={editedQuestion.q} onChange={(e) => {setEditedQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
@@ -46,7 +46,12 @@ const EditQuestion = (props) => {
           </>:
           <></>
         }
-        <button type='submit'>Spremi</button>
+        <Button variant="contained" style={{
+              width: "15vw",
+              color: "#000000",
+              backgroundColor: '#95BD54',
+              
+              }}  type='submit'>Dodaj</Button>
         </form>
     </div>
   );

@@ -17,7 +17,7 @@ const Profile = () => {
   const calculateDuration = () =>{
     if(!profileData) return
 
-    let time = profileData.results.timeSpentSolving
+    let time = profileData.results[0].timespentsolving
     if(time < 60) return time + " sekundi"
     time = Math.round(time / 60)
     if(time < 60) return time + " minuta"
@@ -30,17 +30,17 @@ const Profile = () => {
   return (
     <div>
         <div>
-          <img src={profileData?.image} />
+        <div><h4>{profileData?.username}</h4></div>
           <div className='d-flex flex-row justify-content-evenly'>
 
             <div class='p-2' style={{background:'linear-gradient(to bottom, #EAE6D6, #93958F)'}}>
               <div ><h4>Broj rješenih kvizova:</h4></div>
-              <div><h4>{profileData?.results.taken}</h4></div>
-
+              <div><h4>{profileData?.results[0].solvedquizes}</h4></div>
+ 
             </div>
             <div class=' p-2 ' style={{background:'linear-gradient(to bottom, #EAE6D6, #93958F)'}}>
               <div><h4>Broj točnih odgovora:</h4></div>
-              <div><h4>{profileData?.results.solvedQuestions}</h4></div>
+              <div><h4>{profileData?.results[0].solvedquestion}</h4></div>
             </div>
             <div class='p-2' style={{background:'linear-gradient(to bottom, #EAE6D6, #93958F)'}}>
               <div><h4>Vrijeme provedeno rješavajući:</h4></div>

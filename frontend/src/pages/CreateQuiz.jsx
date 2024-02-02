@@ -157,16 +157,7 @@ const CreateQuiz = () => {
             <label>Trajanje</label>
             <input class="form-control" type="number" min={0} value={duration} onChange={(e)=>{setDuration(e.target.value)}}/>
             
-            <Dropzone maxFiles={1} onDrop={acceptedFiles => {handleDroppendImages(acceptedFiles)}}>
-              {({getRootProps, getInputProps}) => (
-                <section className='border border-success m-3 w-25'>
-                  <div {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <p>Drag 'n' drop some files here, or click to select files</p>
-                  </div>
-                </section>
-              )}
-            </Dropzone>
+        
             
             <Button variant="contained" style={{
               width: "15vw",

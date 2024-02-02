@@ -9,16 +9,16 @@ const Question = (props) => {
     <>
     <div className='d-flex flex-row w-50 gap-3 m-2'>
       {
-          quizType.id == 1 ? 
+         quizType.name == 'Pitanje - odgovor' ? 
           <div>
             <div>{index + 1}. Pitanje: {question.q}</div>
             <div>&nbsp;&nbsp; Odgovor: {question.a}</div>
           </div>:
-          quizType.id == 2 || quizType.id == 4 ? 
+          quizType.name == 'Asocijacija' || quizType.name == 'Memory' ? 
           <div>
             <div>{index + 1}. {question.q} - {question.a}</div>
           </div>:
-          quizType.id == 3 ? 
+          quizType.name == 'Višestruki odgovor' ? 
           <div>
             <div>{index + 1}. Pitanje: {question.q}</div>
             <div>&nbsp;&nbsp;Točan odgovor: {question.a}</div>

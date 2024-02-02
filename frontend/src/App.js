@@ -5,6 +5,7 @@ import '@mui/material'
 import '@emotion/react'
 import '@emotion/styled'
 
+
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Profile from './pages/Profile';

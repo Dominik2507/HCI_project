@@ -184,7 +184,7 @@ export const ProfileData = {
     token: "qiruezroiqwzeriuqwziruqrwe",
     image: "logo192.png",
     results: {
-        token: 10,
+        solvedQuizes: 10,
         solvedQuestions: 58,
         timeSpentSolving: 400
     },
