@@ -4,6 +4,8 @@ const AddQuestion = (props) => {
   const [newQuestion, setNewQuestion] = useState({})
   const {handleAddQuestion, quizType} = props;
 
+  console.log(quizType)
+
   const handleSubmit = (e) =>{
     e.preventDefault(); 
     handleAddQuestion(newQuestion)
@@ -14,23 +16,23 @@ const AddQuestion = (props) => {
     <div className='d-flex flex-column p-3'>
         <div>Dodaj novo pitanje</div>
         <form className='d-flex flex-column w-25' onSubmit={handleSubmit}>
-
+        {console.log(quizType.id)}
         {
-          quizType.id == 1 ? 
+          quizType.name == 'Pitanje - odgovor' ? 
           <>
             <div className='d-flex flex-column'>
               <label>Pitanje</label><input value={newQuestion.q} onChange={(e) => {setNewQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
               <label>Odgovor</label><input value={newQuestion.a} onChange={(e) => {setNewQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
             </div>
           </>:
-          quizType.id == 2 || quizType.id == 4 ? 
+          quizType.name == 'Asocijacija' || quizType.name == 'Memory' ? 
           <>
             <div className='d-flex flex-column'>
               <label>Prvi pojam</label><input value={newQuestion.q} onChange={(e) => {setNewQuestion(prev => {return {...prev, q: e.target.value}})}}></input>
               <label>Drugi pojam</label><input value={newQuestion.a} onChange={(e) => {setNewQuestion(prev => {return {...prev, a: e.target.value}})}}></input>
             </div>
           </>:
-          quizType.id == 3 ? 
+          quizType.name == 'Višestruki odgovor' ? 
           <>
             <div className='d-flex flex-column'>
               <label>Pitanje</label><input value={newQuestion.q} onChange={(e) => {setNewQuestion(prev => {return {...prev, q: e.target.value}})}}></input>

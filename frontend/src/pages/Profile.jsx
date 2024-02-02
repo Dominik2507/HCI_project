@@ -8,6 +8,7 @@ const Profile = () => {
 
   useEffect(()=>{
     getProfileData().then((response)=>{
+      console.log(response.data)
       setProfileData(response.data)
     })
     
@@ -16,7 +17,7 @@ const Profile = () => {
   const calculateDuration = () =>{
     if(!profileData) return
 
-    let time = profileData.results.timeSpentSolving
+    let time = profileData.results[0].timespentsolving
     if(time < 60) return time + " sekundi"
     time = Math.round(time / 60)
     if(time < 60) return time + " minuta"
@@ -33,11 +34,11 @@ const Profile = () => {
           <div className='d-flex flex-row justify-content-evenly'>
             <div>
               <div>Broj rješenih kvizova</div>
-              <div>{profileData?.results.token}</div>
+              <div>{profileData?.results[0].solvedquizes}</div>
             </div>
             <div>
               <div>Broj točnih odgovora kvizova</div>
-              <div>{profileData?.results.solvedQuestions}</div>
+              <div>{profileData?.results[0].solvedquestion}</div>
             </div>
             <div>
               <div>Provedeno vrijeme rješavajući</div>

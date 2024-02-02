@@ -33,6 +33,7 @@ CREATE TABLE QuizTypes
 
 CREATE TABLE Result
 (
+  solvedQuizes INT NOT NULL,
   solvedQuestion INT NOT NULL,
   timeSpentSolving FLOAT NOT NULL,
   userId INT NOT NULL,

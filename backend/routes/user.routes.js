@@ -10,7 +10,7 @@ router.get('/', async function(req, res, next) {
 
     let id = user_info.id;
 
-    let results = await db.query('SELECT token, solvedQuestion, timeSpentSolving FROM result WHERE userid = $1', [id]);
+    let results = await db.query('SELECT solvedQuizes, solvedQuestion, timeSpentSolving FROM result WHERE userid = $1', [id]);
     results = results.rows;
 
     let quizes = await db.query('SELECT Quizes.title, Quizes.id, "user".username as author, Quizes.authorId as authorId, Categories.title as category, categoryId as categoryId, QuizTypes.name as quizType, quizTypeId, duration, image FROM Quizes, "user", Categories, QuizTypes \
