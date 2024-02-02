@@ -11,7 +11,7 @@ router.post('/', async function(req, res, next) {
     let questions = req.body.questions;
     let quizId = await db.query('SELECT id FROM quizes WHERE title = $1', [req.body.name]);
     quizId = quizId.rows[0].id
-    if (quiztypeid.rows[0].id == 1) {
+    if (quiztypeid.rows[0].id != 3) {
         let i = 0;
         while (i < questions.length) {
             let element = questions[i];

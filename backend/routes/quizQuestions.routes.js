@@ -10,7 +10,7 @@ router.get('/', async function(req, res, next) {
 
     let questions = []
 
-    if (quizTypeId.rows[0].quiztypeid == 1) {
+    if (quizTypeId.rows[0].quiztypeid != 3) {
         db_data.rows.forEach((element) => {
             let question = {
                 q: element.q,
