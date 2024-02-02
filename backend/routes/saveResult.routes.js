@@ -13,7 +13,7 @@ router.post('/', async function(req, res, next) {
     if (curr_results.rows.length == 0) {
         await db.query('INSERT INTO result (solvedQuizes, solvedquestion, timespentsolving, userid) VALUES ($1, $2, $3, $4)', [1, req.body.solvedquestions, req.body.timespent, user_id]);
     } else {
-        await db.query('UPDATE result SET solvedquestion = $1, timespentsolving = $2, solvedQuizes = $3', [curr_results.rows[0].solvedquestion + req.body.solvedquestions, curr_results.rows[0].timespentsolving + req.body.timespent, curr_results.rows[0].solvedquizes + 1]);
+        await db.query('UPDATE result SET solvedquestion = $1, timespentsolving = $2', [curr_results.rows[0].solvedquestion + req.body.solvedquestions, curr_results.rows[0].timespentsolving + req.body.timespent]);
     }
 
     res.status(200)

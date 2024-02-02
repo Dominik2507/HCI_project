@@ -11,7 +11,7 @@ router.post('/', async function(req, res, next) {
     let questions = req.body.questions;
     let quizId = await db.query('SELECT id FROM quizes WHERE title = $1', [req.body.name]);
     quizId = quizId.rows[0].id
-    if (quiztypeid.rows[0].id != 3) {
+    if (quiztypeid.rows[0].id != 5) {
         let i = 0;
         while (i < questions.length) {
             let element = questions[i];
@@ -25,8 +25,8 @@ router.post('/', async function(req, res, next) {
             let element = questions[i];
             i++;
             await db.query('INSERT INTO questions (question, correctanswer, w1, w2, w3, quizid) VALUES ($1, $2, $3, $4, $5, $6)', [element.q, element.a, element.wa1, element.wa2, element.wa3, quizId]);
-        }
     }
+}
     res.status(200).json({
         data: quizId
     })

@@ -166,7 +166,6 @@ export const saveQuiz = async (data) => {
   if(data.id == null){
     return api.post('/createQuiz', data)
     .then(function(response) {
-      console.log(data.questions);
       return response.data;
     })
     .catch(function (error) {

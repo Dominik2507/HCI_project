@@ -7,6 +7,7 @@ import Question from '../components/CreateQuiz/Question';
 import Dropzone from "react-dropzone"
 import EditQuestion from '../components/CreateQuiz/EditQuestion';
 import { getCategories, getQuitTypes, saveQuiz } from '../api/api';
+import { Button } from '@mui/material';
 
 const CreateQuiz = () => {
   const [quizName, setQuizName] = useState("")
@@ -141,41 +142,36 @@ const CreateQuiz = () => {
 
         <hr/>
 
-        <div className='d-flex flex-row m-2'>
-          <div className='d-flex flex-column w-50 p-2 border border-4 border-danger'>
+        <div className='d-flex flex-row m-2' style={{fontSize:'20px'}}>
+          <div className='d-flex flex-column w-50 p-2'>
             <label>Unesi ime kviza</label>
-            <input value={quizName} onChange={(e)=>setQuizName(e.target.value)} required></input>
-            <label>Tip kviza <FontAwesomeIcon icon={faInfoCircle}/></label>
-            <select required onChange={handleChangeQuizType}>
+            <input class="form-control"  value={quizName} onChange={(e)=>setQuizName(e.target.value)} required></input>
+            <label>Tip kviza</label>
+            <select class="form-control" required onChange={handleChangeQuizType}>
               {quizOptions}
             </select>
             <label>Kategorija</label>
-            <select required onChange={(e) => {setCategory(e.target.value)}}>
+            <select class="form-control" required onChange={(e) => {setCategory(e.target.value)}}>
               {categoriesOptions}
             </select>
             <label>Trajanje</label>
-            <input type="number" min={0} value={duration} onChange={(e)=>{setDuration(e.target.value)}}/>
+            <input class="form-control" type="number" min={0} value={duration} onChange={(e)=>{setDuration(e.target.value)}}/>
             
-            <Dropzone maxFiles={1} onDrop={acceptedFiles => {handleDroppendImages(acceptedFiles)}}>
-              {({getRootProps, getInputProps}) => (
-                <section className='border border-2 border-secondary m-3 w-25'>
-                  <div {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <p>Drag 'n' drop some files here, or click to select files</p>
-                  </div>
-                </section>
-              )}
-            </Dropzone>
+        
             
-            <button onClick={handleSaveQuiz}>Spremi</button>
+            <Button variant="contained" style={{
+              width: "15vw",
+              color: "#000000",
+              backgroundColor: '#95BD54'
+              }} 
+              onClick={handleSaveQuiz}>Spremi</Button>
           </div>
 
-          <div className='d-flex flex-column w-50 border border-4 border-primary'>
+          <div className='d-flex flex-column w-50 border border-success'>
             {questionComponents}
           </div>
           
         </div>
-
         {
           isEditing ? <EditQuestion handleEditQuestion={handleSaveEdit} index={editingIndex} quizType={quizTypesList[quizTypeIndex]} question={createdQuestions[editingIndex]}/> :
           quizTypesList.length > 0 && <AddQuestion handleAddQuestion = {handleAddQuestion}  quizType={quizTypesList[quizTypeIndex]}/>

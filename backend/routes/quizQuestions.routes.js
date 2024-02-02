@@ -10,15 +10,16 @@ router.get('/', async function(req, res, next) {
 
     let questions = []
 
-    if (quizTypeId.rows[0].quiztypeid != 3) {
-        db_data.rows.forEach((element) => {
-            let question = {
-                q: element.q,
-                a: element.a
-            };
-            questions.push(question);
-        })
-    }
+    db_data.rows.forEach((element) => {
+        let question = {
+            q: element.q,
+            a: element.a,
+            wa1: element.wa1,
+            wa2: element.wa2,
+            wa3:element.wa3
+        };
+        questions.push(question);
+        })  
 
     let data = {
         quizId: parseInt(id),
