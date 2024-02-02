@@ -26,10 +26,10 @@ const ResultsDialog = ({ open, onClose, onConfirm, questions, givenAnswers }) =>
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="success">
+        <Button onClick={handleClose} color="primary">
           Zatvori
         </Button>
-        <Button onClick={handleConfirm} color="success" autoFocus>
+        <Button onClick={handleConfirm} color="primary" autoFocus>
           Ponovi kviz
         </Button>
       </DialogActions>

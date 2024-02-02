@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { getQuestionsForQuiz, getQuizById, saveQuizResults } from '../api/api';
 import { Pitanja, Quizes } from '../api/dummyData';
 import ResultsDialog from '../components/SolveQuiz/ResultsDialog';
-import { Button } from '@mui/material';
 
 const SolveQuiz = ({isAuthenticated}) => {
   const {imeKviza} = useParams();
@@ -19,7 +18,9 @@ const SolveQuiz = ({isAuthenticated}) => {
 
   const [openResultsDialog, setResultsDialogOpen] = useState(false)
 
-  
+  if(quiz && timer >= quiz.duration){
+    handleEndQuiz()
+  }
   const handleStartQuiz = () => {
     setIsRunning(true)
   }
@@ -30,10 +31,6 @@ const SolveQuiz = ({isAuthenticated}) => {
     setResultsDialogOpen(true)  
   
     if(isAuthenticated) saveQuizResults(quiz, questions, givenAnswers)
-  }
-
-  if(quiz && timer >= quiz.duration){
-    handleEndQuiz()
   }
 
   const handleRestartQuiz = () => {
@@ -71,53 +68,33 @@ const SolveQuiz = ({isAuthenticated}) => {
     
   }, [isRunning]);
 
-
- 
- 
-   
-
   return (
     quiz ? <div className='d-flex flex-column'>
       <div className='ps-3'><h1>{quiz.title}</h1></div>
-      <div className='d-flex flex-row justify-content-evenly align-items-center' 
+      <div className='d-flex flex-row justify-content-evenly align-items-center border border-3 border-primary' 
         style={
           {
             height: "10vh"
           }
         }
       >
-  
-        <div><Button disabled style={{ color: '#000000', textTransform: 'none' }}><h4>{quiz.author}</h4></Button></div>
-        <div><Button disabled style={{ color: '#000000', textTransform: 'none'}}> <h4>{quiz.category}</h4></Button></div>
-        <div><Button disabled style={{ color: '#000000', textTransform: 'none' }}><h4>{quiz.quizType}</h4></Button></div>
-        <div><Button disabled style={{ color: '#000000' , textTransform: 'none'}}><h4>{isRunning ? timer + " / " : ""}</h4><h4>{quiz.duration} s </h4></Button></div>
-
+        <div>{quiz.author}</div>
+        <div>{quiz.category}</div>
+        <div>{quiz.quiztype}</div>
+        <div>{isRunning ? timer + " / " : ""}{quiz.duration} s</div>
         <div>
           {
             isRunning ? 
-            <Button onClick={handleEndQuiz} variant="contained" style={{
-              color: "#000000",
-              backgroundColor: '#95BD54'}}>Završi</Button>
+            <button onClick={handleEndQuiz}>Završi</button>
             :
             isViewingResults ? 
-            <Button onClick={handleRestartQuiz} variant="contained" style={{
-              color: "#000000",
-              backgroundColor: '#95BD54'}}>Ponovi kviz</Button>
+            <button onClick={handleRestartQuiz}>Ponovi kviz</button>
             :
-            <Button onClick={handleStartQuiz} variant="contained" style={{
-              color: "#000000",
-              backgroundColor: '#95BD54'
-          }}>Pokreni kviz</Button>
+            <button onClick={handleStartQuiz}>Kreni rješavanje</button>
           }
         </div>
       </div>
-      
-      <div className='d-flex flex-row justify-content-center w-100 align-items-center' style={
-              {
-                width: "50vh",
-                height: "50vh",
-              }}> 
-     
+      <div className='d-flex flex-row justify-content-center w-100 align-items-center'>
         <ResultsDialog open={openResultsDialog} questions={questions} givenAnswers={givenAnswers} onConfirm={handleRestartQuiz} onClose={()=>{setResultsDialogOpen(false)}}/>
         {
           isRunning || isViewingResults? 
@@ -140,7 +117,7 @@ const SolveQuiz = ({isAuthenticated}) => {
               }
             }>{quiz.image}</div>
 
-            <div><Button disabled style={{ color: '#000000', textTransform: 'none' }}><h4> Pokreni kviz kako bi se prikazala pitanja</h4></Button></div>
+            <div> Pokreni kviz kako bi se prikazala pitanja</div>
           </>
         }
          
@@ -148,7 +125,6 @@ const SolveQuiz = ({isAuthenticated}) => {
     </div> : <></>
   );
 };
-
 
 const SolvingQA = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
   console.log('AA0')
@@ -173,7 +149,7 @@ const SolvingQA = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
       { 
         width: "5vh", 
         height: "5vh",
-        background: viewOnly ? (q.a.toUpperCase() == givenAnswers[index].toUpperCase() ? "rgb(149, 189, 84)" : "red"): index == qIndex ? "rgb(149, 189, 84)" : givenAnswers[index] !== "" ? "yellow" : "lightgray"
+        background: viewOnly ? (q.a.toUpperCase() == givenAnswers[index].toUpperCase() ? "green" : "red"): index == qIndex ? "green" : givenAnswers[index] !== "" ? "yellow" : "lightgray"
       }} 
     onClick={() => setQuestionIndex(index)}>
       {index + 1}
@@ -181,11 +157,11 @@ const SolvingQA = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
   ));
 
   return (
-  <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
-    <div><h2>{question.q}</h2></div>
-    <div className='d-flex flex-row justify-content-center align-items-center p-2'><input disabled={viewOnly} value={givenAnswers[qIndex]} onChange={handleAnswerChange}/></div>
-    <div className='d-flex flex-row justify-content-center align-items-center'>
-      <h3>{navigateToQuestion}</h3>
+  <div>
+    <div>{question.q}</div>
+    <div><input disabled={viewOnly} value={givenAnswers[qIndex]} onChange={handleAnswerChange}/></div>
+    <div className='d-flex flex-row'>
+      {navigateToQuestion}
     </div>
   </div>
   )
@@ -242,34 +218,30 @@ const SolvingAsoc = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
     
     questions.forEach((q, i) => {
       buttons.push(
-        <Button  variant="outlined" color="success"
+        <button 
         disabled={viewOnly || correctlyPaired.findIndex(c => c==i) >= 0} 
         onClick={()=>{handleClickAsoc(i + 1)}}
         style={
           {
-            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "rgb(149, 189, 84)" : first == (i + 1) ? "yellow" : "initial",
-            color:"black",
-            textTransform:"none"
+            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "green" : first == (i + 1) ? "yellow" : "initial"
           }
         }
         >
-         <h2>{q.q}</h2> 
-        </Button>
+          {q.q}
+        </button>
       )
       buttons.push(
-        <Button  variant="outlined" color="success"
+        <button 
         disabled={viewOnly || correctlyPaired.findIndex(c => c==i) >= 0} 
         onClick={()=>{handleClickAsoc(-1 * (i + 1))}}
         style={
           {
-            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "rgb(149, 189, 84)" : first == (-1 *(i+1)) ? "yellow" : "initial",
-            color:"black",
-            textTransform:"none"
+            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "green" : first == (-1 *(i+1)) ? "yellow" : "initial"
           }
         }
         >
-          <h2>{q.a}</h2>
-        </Button>
+          {q.a}
+        </button>
       )
     })
 
@@ -283,8 +255,8 @@ const SolvingAsoc = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
   <div style={{
     display: "grid",
     gridTemplateColumns: `repeat(${Math.floor(Math.sqrt(questions.length * 2))}, 1fr)`, // Two columns with equal width
-    gridTemplateRows: "repeat(2, 1fr)",    // Two rows with equal height
-    padding: "8vh"
+    //gridTemplateRows: "repeat(2, 1fr)",    // Two rows with equal height
+    padding: "2vh"
   }}>
    {randomizedButtons}
   </div>
@@ -321,38 +293,30 @@ const SolvingQMA = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
 
   useEffect(()=>{
     const buttons = [
-      <Button variant="outlined" color="success"
-        style={{backgroundColor: givenAnswers[qIndex] != question.a ? "initial" : viewOnly ? "rgb(149, 189, 84)" : "yellow",
-        color:"black",
-        textTransform:"none"}} 
+      <button 
+        style={{backgroundColor: givenAnswers[qIndex] != question.a ? "initial" : viewOnly ? "green" : "yellow"}} 
         onClick={()=>{handleAnswerChange(question.a)}}
       >
-        <h3>{question.a}</h3>
-      </Button>,
-      <Button variant="outlined" color="success"
-        style={{backgroundColor: givenAnswers[qIndex] != question.wa1 ? "initial" : viewOnly ? "rgb(149, 189, 84)" : "yellow",
-        color:"black",
-        textTransform:"none"}} 
+        {question.a}
+      </button>,
+      <button
+        style={{backgroundColor: givenAnswers[qIndex] != question.wa1 ? "initial" : viewOnly ? "green" : "yellow"}} 
         onClick={()=>{handleAnswerChange(question.wa1)}}
       >
-          <h3>{question.wa1}</h3>
-      </Button>,
-      <Button variant="outlined" color="success"
-        style={{backgroundColor: givenAnswers[qIndex] != question.wa2 ? "initial" : viewOnly ? "rgb(149, 189, 84)" : "yellow",
-        color:"black",
-        textTransform:"none"}} 
+          {question.wa1}
+      </button>,
+      <button 
+        style={{backgroundColor: givenAnswers[qIndex] != question.wa2 ? "initial" : viewOnly ? "green" : "yellow"}} 
         onClick={()=>{handleAnswerChange(question.wa2)}}
       >
-          <h3>{question.wa2}</h3>
-      </Button>,
-      <Button variant="outlined" color="success"
-        style={{backgroundColor: givenAnswers[qIndex] != question.wa3 ? "initial" : viewOnly ? "rgb(149, 189, 84)" : "yellow",
-        color:"black",
-        textTransform:"none"}}
+          {question.wa2}
+      </button>,
+      <button
+        style={{backgroundColor: givenAnswers[qIndex] != question.wa3 ? "initial" : viewOnly ? "green" : "yellow"}}
         onClick={()=>{handleAnswerChange(question.wa3)}}
       >
-        <h3>{question.wa3}</h3>
-      </Button>
+        {question.wa3}
+      </button>
     ]
       
     setAnswerButtons(
@@ -374,7 +338,7 @@ const SolvingQMA = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
       { 
         width: "5vh", 
         height: "5vh",
-        background: viewOnly ? (q.a.toUpperCase() == givenAnswers[index].toUpperCase() ? "rgb(149, 189, 84)" : "red"): index == qIndex ? "rgb(149, 189, 84)" : givenAnswers[index] !== "" ? "yellow" : "lightgray"
+        background: viewOnly ? (q.a.toUpperCase() == givenAnswers[index].toUpperCase() ? "green" : "red"): index == qIndex ? "green" : givenAnswers[index] !== "" ? "yellow" : "lightgray"
       }} 
     onClick={() => setQuestionIndex(index)}>
       {index + 1}
@@ -383,11 +347,11 @@ const SolvingQMA = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
 
   return (
   <div>
-    <div><h2>{question.q}</h2></div>
+    <div>{question.q}</div>
     <div>
       {answerButtons}
     </div>
-    <div className='d-flex flex-row align-items-center justify-content-center'>
+    <div className='d-flex flex-row'>
       {navigateToQuestion}
     </div>
   </div>
@@ -458,40 +422,36 @@ const SolvingMem = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
     
     questions.forEach((q, i) => {
       buttons.push(
-        <Button  variant="outlined" color="success"
+        <button
         className='memoryButton'
         disabled={viewOnly || showBothClicked || correctlyPaired.findIndex(c => c==i) >= 0} 
         onClick={()=>{handleClickAsoc(i + 1)}}
         style={
           {
-            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "rgb(149, 189, 84)" : (first == (i + 1) || second == (i + 1))? "yellow" : "initial",
+            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "green" : (first == (i + 1) || second == (i + 1))? "yellow" : "initial",
             width: "20vh",
-            height: "20vh",
-            textTransform:'none',
-            color:'black'
+            height: "20vh"
           }
         }
         >
-         <h3> {viewOnly || correctlyPaired.findIndex(c => c==i) >= 0 || first == (i + 1) || second == (i + 1) ? q.q : ""}</h3>
-        </Button>
+          {viewOnly || correctlyPaired.findIndex(c => c==i) >= 0 || first == (i + 1) || second == (i + 1) ? q.q : ""}
+        </button>
       )
       buttons.push(
-        <Button  variant="outlined" color="success"
+        <button
         className='memoryButton'
         disabled={viewOnly || showBothClicked  || correctlyPaired.findIndex(c => c==i) >= 0} 
         onClick={()=>{handleClickAsoc(-1 * (i + 1))}}
         style={
           {
-            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "rgb(149, 189, 84)" : (first == (-1 *(i+1)) || second == (-1 *(i+1)) ) ? "yellow" : "initial",
+            backgroundColor: correctlyPaired.findIndex(c => c==i) >= 0 ? "green" : (first == (-1 *(i+1)) || second == (-1 *(i+1)) ) ? "yellow" : "initial",
             width: "20vh",
-            height: "20vh",
-            textTransform:'none',
-            color:'black'
+            height: "20vh"
           }
         }
         >
-          <h3>{viewOnly || correctlyPaired.findIndex(c => c==i) >= 0 || first == (-1 *(i+1)) || second == (-1 *(i+1))? q.a : ""}</h3>
-        </Button>
+          {viewOnly || correctlyPaired.findIndex(c => c==i) >= 0 || first == (-1 *(i+1)) || second == (-1 *(i+1))? q.a : ""}
+        </button>
       )
     })
 
@@ -502,17 +462,14 @@ const SolvingMem = ({questions, givenAnswers, setGivenAnswers, viewOnly}) => {
   const randomizedButtons = randomizedIndexList.map(index => answerButtons[index])
 
   return (
-  
   <div style={{
     display: "grid",
     gridTemplateColumns: `repeat(${Math.floor(Math.sqrt(questions.length * 2))}, 1fr)`, // Two columns with equal width
     //gridTemplateRows: "repeat(2, 1fr)",    // Two rows with equal height
-    padding: "5vh",
-    transform: "translate(0%, 10%)"
+    padding: "2vh"
   }}>
    {randomizedButtons}
   </div>
-  
   )
 }
 

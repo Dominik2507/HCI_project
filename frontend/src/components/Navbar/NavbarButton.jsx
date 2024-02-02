@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '@mui/material';
+import { Button } from 'bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const NavbarButton = (props) => {
@@ -8,13 +8,11 @@ const NavbarButton = (props) => {
 
 
   return (
-    <Button variant="contained" onClick={()=>navigate(link)} style={{
-        width: "15vw",
-        color: "#000000",
-        backgroundColor: '#95BD54'
+    <button onClick={()=>navigate(link)} style={{
+        width: "15vw"
     }}>
         {text}
-    </Button>
+    </button>
   );
 };
 

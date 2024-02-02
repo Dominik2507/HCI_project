@@ -4,7 +4,6 @@ import CategoryButton from "./CategoryButton"
 import { getCategories } from '../../api/api';
 import { Categories as DummyCategories } from '../../api/dummyData';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -36,11 +35,11 @@ const Categories = () => {
   }
 
   return (
-    <div style={
+    <div className="border border-3 border-danger" style={
         {height: "50vh"}
     }>
         <CategoriesTitle/>
-        <div className='d-flex flex-row justify-content-between' 
+        <div className='d-flex flex-row justify-content-between border border-2 border-success' 
         style={{
             width: "70vw",
             marginLeft: "15vw"
@@ -48,7 +47,7 @@ const Categories = () => {
         >
             {categoriesCompoments}
         </div>
-        <div className='w-100 pe-5 d-flex justify-content-end align-content-center' style={{height: "5vh", marginTop: "3vh"}}>
+        <div className='w-100 pe-5 d-flex justify-content-end align-content-center bg-primary' style={{height: "5vh", marginTop: "3vh"}}>
             <MoreButton />
         </div>
     </div>
@@ -57,10 +56,7 @@ const Categories = () => {
 
 const MoreButton = () => {
     const navigate = useNavigate();
-    return <Button variant="contained" style={{
-      color: "#000000",
-      backgroundColor: 'rgba(143, 191, 4, 0.5)'
-  }}  onClick={()=> {navigate("/kategorije")}}> Više... </Button>
+    return <button onClick={()=> {navigate("/kategorije")}}> Više... </button>
 }
 
 const CategoriesTitle = ()=>{

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../api/api';
-import { Button } from '@mui/material';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -37,14 +36,11 @@ const RegisterPage = () => {
 
   return (
     <div>
-     
-      <div class='container p-5' style={{minHeight:'100vh'}}>
-      <div className='d-grid justify-content-center w-100 align-items-center' style={{minHeight:'50vh'}}>
       <h2>Register Page</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username:</label>
-          <input class="form-control p-2"
+          <input
             type="text"
             id="username"
             name="username"
@@ -55,7 +51,7 @@ const RegisterPage = () => {
         </div>
         <div>
           <label htmlFor="email">Email:</label>
-          <input class="form-control p-2"
+          <input
             type="email"
             id="email"
             name="email"
@@ -66,7 +62,7 @@ const RegisterPage = () => {
         </div>
         <div>
           <label htmlFor="password">Password:</label>
-          <input class="form-control p-2"
+          <input
             type="password"
             id="password"
             name="password"
@@ -77,7 +73,7 @@ const RegisterPage = () => {
         </div>
         <div>
           <label htmlFor="password">Confirm password:</label>
-          <input class="form-control p-2"
+          <input
             type="password"
             id="cpassword"
             name="cpassword"
@@ -86,16 +82,8 @@ const RegisterPage = () => {
             required
           />
         </div>
-        <div class="p-2">
-        <Button variant="contained" style={{
-        width: "15vw",
-        color: "#000000",
-        backgroundColor: '#95BD54'
-    }} on type="submit">Register</Button>
-    </div>
+        <button type="submit">Register</button>
       </form>
-      </div>
-      </div>
     </div>
   );
 };
